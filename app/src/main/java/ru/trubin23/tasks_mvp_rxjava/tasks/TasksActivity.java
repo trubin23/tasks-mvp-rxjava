@@ -20,5 +20,7 @@ public class TasksActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), tasksFragment, R.id.content_frame);
         }
+
+        TasksPresenter tasksPresenter = new TasksPresenter();
     }
 }
