@@ -23,6 +23,7 @@ public class TasksPresenter implements TasksContract.Presenter {
         mTasksView = tasksView;
         mSchedulerProvider = schedulerProvider;
 
+        mTasksView.setPresenter(this);
     }
 
     @Override
