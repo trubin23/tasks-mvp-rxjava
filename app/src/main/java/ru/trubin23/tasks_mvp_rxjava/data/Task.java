@@ -22,4 +22,23 @@ public final class Task {
         mDescription = description;
         mCompleted = completed;
     }
+
+    @NonNull
+    public String getTaskId() {
+        return mId;
+    }
+
+    @NonNull
+    public String getTitle() {
+        return mTitle;
+    }
+
+    @NonNull
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public boolean isCompleted() {
+        return mCompleted;
+    }
 }
