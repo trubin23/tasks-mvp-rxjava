@@ -14,4 +14,14 @@ interface TasksDataSource {
     Flowable<List<Task>> getTasks();
 
     Flowable<Optional<Task>> getTask(@NonNull String taskId);
+
+    void saveTask(@NonNull Task task);
+
+    void updateTask(@NonNull Task task);
+
+    void deleteTask(@NonNull String taskId);
+
+    void completedTask(@NonNull String taskId, boolean completed);
+
+    void clearCompletedTask();
 }

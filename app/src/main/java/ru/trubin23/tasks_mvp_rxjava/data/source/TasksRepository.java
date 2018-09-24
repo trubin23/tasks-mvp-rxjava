@@ -10,7 +10,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
 
-public class TasksRepository implements TasksDataSource {
+public class TasksRepository implements TasksMainDataSource {
 
     @Nullable
     private static TasksRepository INSTANCE = null;
@@ -45,5 +45,35 @@ public class TasksRepository implements TasksDataSource {
     @Override
     public Flowable<Optional<Task>> getTask(@NonNull String taskId) {
         return null;
+    }
+
+    @Override
+    public void saveTask(@NonNull Task task) {
+
+    }
+
+    @Override
+    public void updateTask(@NonNull Task task) {
+
+    }
+
+    @Override
+    public void deleteTask(@NonNull String taskId) {
+
+    }
+
+    @Override
+    public void completedTask(@NonNull String taskId, boolean completed) {
+
+    }
+
+    @Override
+    public void clearCompletedTask() {
+
+    }
+
+    @Override
+    public void refreshTasks() {
+
     }
 }
