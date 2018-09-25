@@ -21,6 +21,8 @@ public class TasksRepository implements TasksMainDataSource {
     private final TasksLocalDataSource mTasksLocalDataSource;
     private final TasksCacheDataSource mTasksCacheDataSource;
 
+    private boolean mForceRefresh = false;
+
     private TasksRepository(@NonNull TasksDataSource tasksRemoteDataSource,
                             @NonNull TasksLocalDataSource tasksLocalDataSource,
                             @NonNull TasksCacheDataSource tasksCacheDataSource) {
@@ -41,6 +43,24 @@ public class TasksRepository implements TasksMainDataSource {
 
     @Override
     public Flowable<List<Task>> getTasks() {
+        List<Task> tasks = mTasksCacheDataSource.getTasks();
+        if (tasks != null) {
+            return Flowable.fromIterable(mTasksCacheDataSource.getTasks()).toList().toFlowable();
+        }
+
+        return null;
+        //if (mForceRefresh) {
+        //    getTasksFromRemoteDataSource(true);
+        //} else {
+        //    getTasksFromLocalDataSource(true);
+        //}
+    }
+
+    private Flowable<List<Task>> getTasksFromLocalDataSource(boolean handleErrors) {
+        return null;
+    }
+
+    private Flowable<List<Task>> getTasksFromRemoteDataSource(boolean handleErrors) {
         return null;
     }
 
