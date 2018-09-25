@@ -9,7 +9,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
 
-interface TasksDataSource {
+public interface TasksDataSource {
 
     Flowable<List<Task>> getTasks();
 

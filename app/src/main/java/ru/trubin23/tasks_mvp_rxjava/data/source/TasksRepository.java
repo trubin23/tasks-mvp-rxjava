@@ -9,6 +9,8 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
+import ru.trubin23.tasks_mvp_rxjava.data.source.cache.TasksCacheDataSource;
+import ru.trubin23.tasks_mvp_rxjava.data.source.local.TasksLocalDataSource;
 
 public class TasksRepository implements TasksMainDataSource {
 
@@ -16,20 +18,20 @@ public class TasksRepository implements TasksMainDataSource {
     private static TasksRepository INSTANCE = null;
 
     private final TasksDataSource mTasksRemoteDataSource;
-    private final TasksDataSource mTasksLocalDataSource;
-    private final TasksDataSource mTasksCacheDataSource;
+    private final TasksLocalDataSource mTasksLocalDataSource;
+    private final TasksCacheDataSource mTasksCacheDataSource;
 
     private TasksRepository(@NonNull TasksDataSource tasksRemoteDataSource,
-                            @NonNull TasksDataSource tasksLocalDataSource,
-                            @NonNull TasksDataSource tasksCacheDataSource) {
+                            @NonNull TasksLocalDataSource tasksLocalDataSource,
+                            @NonNull TasksCacheDataSource tasksCacheDataSource) {
         mTasksRemoteDataSource = tasksRemoteDataSource;
         mTasksLocalDataSource = tasksLocalDataSource;
         mTasksCacheDataSource = tasksCacheDataSource;
     }
 
     public static TasksRepository getInstance(@NonNull TasksDataSource tasksRemoteDataSource,
-                                              @NonNull TasksDataSource tasksLocalDataSource,
-                                              @NonNull TasksDataSource tasksCacheDataSource) {
+                                              @NonNull TasksLocalDataSource tasksLocalDataSource,
+                                              @NonNull TasksCacheDataSource tasksCacheDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new TasksRepository(tasksRemoteDataSource,
                     tasksLocalDataSource, tasksCacheDataSource);
