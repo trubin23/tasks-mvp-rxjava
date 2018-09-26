@@ -61,7 +61,14 @@ public class TasksRepository implements TasksMainDataSource {
     }
 
     private Flowable<List<Task>> getTasksFromRemoteDataSource(boolean handleErrors) {
-        return null;
+        return mTasksRemoteDataSource
+                .getTasks()
+                .flatMap(tasks -> {
+                    mTasksCacheDataSource.setTasks(tasks);
+                    mTasksLocalDataSource.setTasks(tasks);
+                    mForceRefresh = false;
+                    return Flowable.fromIterable(tasks).toList().toFlowable();
+                });
     }
 
     @Override
