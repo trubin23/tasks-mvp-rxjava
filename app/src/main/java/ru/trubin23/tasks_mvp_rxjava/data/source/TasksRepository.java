@@ -68,7 +68,8 @@ public class TasksRepository implements TasksMainDataSource {
                     mTasksLocalDataSource.setTasks(tasks);
                     mForceRefresh = false;
                     return Flowable.fromIterable(tasks).toList().toFlowable();
-                });
+                })
+                .doOnError(t -> getTasksFromRemoteDataSource(handleErrors));
     }
 
     @Override
