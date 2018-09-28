@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import ru.trubin23.tasks_mvp_rxjava.R;
 
-public class AddEditActivity extends AppCompatActivity {
+public class AddEditTaskActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_edit);
+        setContentView(R.layout.add_edit_task_act);
     }
 }
