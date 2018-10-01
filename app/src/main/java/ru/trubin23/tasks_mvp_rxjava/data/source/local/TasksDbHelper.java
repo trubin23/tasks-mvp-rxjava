@@ -10,11 +10,12 @@ public class TasksDbHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_NAME = "tasks";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_TITLE = "title";
-    private static final String COLUMN_DESCRIPTION = "description";
-    private static final String COLUMN_COMPLETED = "completed";
+    public static final String TABLE_NAME = "tasks";
+
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_TITLE = "title";
+    public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_COMPLETED = "completed";
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String BOOLEAN_TYPE = " INTEGER";
@@ -24,8 +25,7 @@ public class TasksDbHelper extends SQLiteOpenHelper {
                     COLUMN_ID + TEXT_TYPE + "," +
                     COLUMN_TITLE + TEXT_TYPE + "," +
                     COLUMN_DESCRIPTION + TEXT_TYPE + "," +
-                    COLUMN_COMPLETED + BOOLEAN_TYPE + "," +
-            ")";
+                    COLUMN_COMPLETED + BOOLEAN_TYPE  + ")";
 
     public TasksDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
