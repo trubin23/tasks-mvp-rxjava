@@ -1,6 +1,7 @@
 package ru.trubin23.tasks_mvp_rxjava.data.source.local;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -11,7 +12,9 @@ import com.squareup.sqlbrite2.SqlBrite;
 
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
 import ru.trubin23.tasks_mvp_rxjava.util.schedulers.BaseSchedulerProvider;
 
@@ -22,6 +25,8 @@ public class TasksLocalRepository implements TasksLocalDataSource {
 
     @NonNull
     private final BriteDatabase mBriteDatabase;
+
+    private Function<Cursor, Task> mTaskMapperFunction;
 
     public static TasksLocalRepository getInstance(
             @NonNull Context context,
@@ -39,6 +44,8 @@ public class TasksLocalRepository implements TasksLocalDataSource {
         TasksDbHelper dbHelper = new TasksDbHelper(context);
         SqlBrite sqlBrite = new SqlBrite.Builder().build();
         mBriteDatabase = sqlBrite.wrapDatabaseHelper(dbHelper, schedulerProvider.io());
+
+        mTaskMapperFunction = this::getTask;
     }
 
     @Override
@@ -49,14 +56,30 @@ public class TasksLocalRepository implements TasksLocalDataSource {
     @Override
     public Flowable<List<Task>> getTasks() {
         String[] projection = {
-                TasksDbHelper.COLUMN_ID,
-                TasksDbHelper.COLUMN_TITLE,
-                TasksDbHelper.COLUMN_DESCRIPTION,
-                TasksDbHelper.COLUMN_COMPLETED
+                Task.COLUMN_ID,
+                Task.COLUMN_TITLE,
+                Task.COLUMN_DESCRIPTION,
+                Task.COLUMN_COMPLETED
         };
+
         String sql = String.format("SELECT %s FROM %s",
-                TextUtils.join(",", projection), TasksDbHelper.TABLE_NAME)
-        return null;
+                TextUtils.join(",", projection), Task.TABLE_NAME);
+
+        return mBriteDatabase.createQuery(Task.TABLE_NAME, sql)
+                .mapToList(mTaskMapperFunction)
+                .toFlowable(BackpressureStrategy.BUFFER);
+    }
+
+    @NonNull
+    private Task getTask(@NonNull Cursor cursor){
+        String itemId = cursor.getString(cursor.getColumnIndexOrThrow(Task.COLUMN_ID));
+        String title = cursor.getString(cursor.getColumnIndexOrThrow(Task.COLUMN_TITLE));
+        String description =
+                cursor.getString(cursor.getColumnIndexOrThrow(Task.COLUMN_DESCRIPTION));
+        boolean completed =
+                cursor.getInt(cursor.getColumnIndexOrThrow(Task.COLUMN_COMPLETED)) == 1;
+
+        return new Task(itemId, title, description, completed)
     }
 
     @Override

@@ -5,6 +5,13 @@ import android.support.annotation.Nullable;
 
 public final class Task {
 
+    public static final String TABLE_NAME = "tasks";
+
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_TITLE = "title";
+    public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_COMPLETED = "completed";
+
     @NonNull
     private final String mId;
 
