@@ -79,12 +79,25 @@ public class TasksLocalRepository implements TasksLocalDataSource {
         boolean completed =
                 cursor.getInt(cursor.getColumnIndexOrThrow(Task.COLUMN_COMPLETED)) == 1;
 
-        return new Task(itemId, title, description, completed)
+        return new Task(itemId, title, description, completed);
     }
 
     @Override
     public Flowable<Optional<Task>> getTask(@NonNull String taskId) {
-        return null;
+        String[] projection = {
+                Task.COLUMN_ID,
+                Task.COLUMN_TITLE,
+                Task.COLUMN_DESCRIPTION,
+                Task.COLUMN_COMPLETED
+        };
+
+        String sql = String.format("SELECT %s FROM %s WHERE %s LIKE ?",
+                TextUtils.join(",", projection), Task.TABLE_NAME, Task.COLUMN_ID);
+
+        return mBriteDatabase.createQuery(Task.TABLE_NAME, sql, taskId)
+                .mapToOneOrDefault(cursor -> Optional.of(mTaskMapperFunction.apply(cursor)),
+                        Optional.<Task>absent())
+                .toFlowable(BackpressureStrategy.BUFFER);
     }
 
     @Override
