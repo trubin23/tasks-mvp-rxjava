@@ -1,7 +1,9 @@
 package ru.trubin23.tasks_mvp_rxjava.data.source.local;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -71,7 +73,7 @@ public class TasksLocalRepository implements TasksLocalDataSource {
     }
 
     @NonNull
-    private Task getTask(@NonNull Cursor cursor){
+    private Task getTask(@NonNull Cursor cursor) {
         String itemId = cursor.getString(cursor.getColumnIndexOrThrow(Task.COLUMN_ID));
         String title = cursor.getString(cursor.getColumnIndexOrThrow(Task.COLUMN_TITLE));
         String description =
@@ -102,7 +104,12 @@ public class TasksLocalRepository implements TasksLocalDataSource {
 
     @Override
     public void saveTask(@NonNull Task task) {
-
+        ContentValues values = new ContentValues();
+        values.put(Task.COLUMN_ID, task.getTaskId());
+        values.put(Task.COLUMN_TITLE, task.getTitle());
+        values.put(Task.COLUMN_DESCRIPTION, task.getDescription());
+        values.put(Task.COLUMN_COMPLETED, task.isCompleted());
+        mBriteDatabase.insert(Task.TABLE_NAME, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     @Override
