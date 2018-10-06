@@ -52,7 +52,10 @@ public class TasksLocalRepository implements TasksLocalDataSource {
 
     @Override
     public void setTasks(@NonNull List<Task> tasks) {
-
+        mBriteDatabase.delete(Task.TABLE_NAME, null);
+        for (Task task : tasks) {
+            saveTask(task);
+        }
     }
 
     @Override
@@ -119,7 +122,6 @@ public class TasksLocalRepository implements TasksLocalDataSource {
 
     @Override
     public void deleteTask(@NonNull String taskId) {
-
     }
 
     @Override
@@ -129,6 +131,8 @@ public class TasksLocalRepository implements TasksLocalDataSource {
 
     @Override
     public void clearCompletedTask() {
-
+        String selection = Task.COLUMN_COMPLETED + " LIKE ?";
+        String[] selectionArgs = {"1"};
+        mBriteDatabase.delete(Task.TABLE_NAME, selection, selectionArgs);
     }
 }
