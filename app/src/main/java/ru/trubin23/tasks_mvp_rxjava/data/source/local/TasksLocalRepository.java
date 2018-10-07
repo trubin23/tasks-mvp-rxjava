@@ -122,11 +122,19 @@ public class TasksLocalRepository implements TasksLocalDataSource {
 
     @Override
     public void deleteTask(@NonNull String taskId) {
+        String selection = Task.COLUMN_ID + " LIKE ?";
+        String[] selectionArgs = {taskId};
+        mBriteDatabase.delete(Task.TABLE_NAME, selection, selectionArgs);
     }
 
     @Override
     public void completedTask(@NonNull String taskId, boolean completed) {
+        ContentValues values = new ContentValues();
+        values.put(Task.COLUMN_COMPLETED, completed);
 
+        String selection = Task.COLUMN_ID + " LIKE ?";
+        String[] selectionArgs = {taskId};
+        mBriteDatabase.update(Task.TABLE_NAME, values, selection, selectionArgs);
     }
 
     @Override
