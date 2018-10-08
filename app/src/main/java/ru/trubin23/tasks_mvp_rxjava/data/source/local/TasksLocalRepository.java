@@ -117,7 +117,16 @@ public class TasksLocalRepository implements TasksLocalDataSource {
 
     @Override
     public void updateTask(@NonNull Task task) {
+        ContentValues values = new ContentValues();
+        values.put(Task.COLUMN_ID, task.getTaskId());
+        values.put(Task.COLUMN_TITLE, task.getTitle());
+        values.put(Task.COLUMN_DESCRIPTION, task.getDescription());
+        values.put(Task.COLUMN_COMPLETED, task.isCompleted());
 
+        String selection = Task.COLUMN_ID + " LIKE ?";
+        String[] selectionArgs = {task.getTaskId()};
+        mBriteDatabase.update(Task.TABLE_NAME, values, SQLiteDatabase.CONFLICT_REPLACE,
+                selection, selectionArgs);
     }
 
     @Override
