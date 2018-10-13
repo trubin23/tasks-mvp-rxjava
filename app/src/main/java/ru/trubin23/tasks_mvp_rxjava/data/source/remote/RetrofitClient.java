@@ -1,10 +1,5 @@
 package ru.trubin23.tasks_mvp_rxjava.data.source.remote;
 
-import android.support.annotation.NonNull;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 class RetrofitClient {
 
     private static final String BASE_URL = "https://trubin23.ru";
