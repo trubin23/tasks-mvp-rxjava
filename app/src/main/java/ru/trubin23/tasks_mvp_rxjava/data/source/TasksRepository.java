@@ -9,67 +9,34 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
-import ru.trubin23.tasks_mvp_rxjava.data.source.cache.TasksCacheDataSource;
-import ru.trubin23.tasks_mvp_rxjava.data.source.local.TasksLocalDataSource;
 
-public class TasksRepository implements TasksMainDataSource {
+public class TasksRepository implements TasksDataSource {
 
     @Nullable
     private static TasksRepository INSTANCE = null;
 
     private final TasksDataSource mTasksRemoteDataSource;
-    private final TasksLocalDataSource mTasksLocalDataSource;
-    private final TasksCacheDataSource mTasksCacheDataSource;
+    private final TasksDataSource mTasksLocalDataSource;
 
     private boolean mForceRefresh = false;
 
     private TasksRepository(@NonNull TasksDataSource tasksRemoteDataSource,
-                            @NonNull TasksLocalDataSource tasksLocalDataSource,
-                            @NonNull TasksCacheDataSource tasksCacheDataSource) {
+                            @NonNull TasksDataSource tasksLocalDataSource) {
         mTasksRemoteDataSource = tasksRemoteDataSource;
         mTasksLocalDataSource = tasksLocalDataSource;
-        mTasksCacheDataSource = tasksCacheDataSource;
     }
 
     public static TasksRepository getInstance(@NonNull TasksDataSource tasksRemoteDataSource,
-                                              @NonNull TasksLocalDataSource tasksLocalDataSource,
-                                              @NonNull TasksCacheDataSource tasksCacheDataSource) {
+                                              @NonNull TasksDataSource tasksLocalDataSource) {
         if (INSTANCE == null) {
-            INSTANCE = new TasksRepository(tasksRemoteDataSource,
-                    tasksLocalDataSource, tasksCacheDataSource);
+            INSTANCE = new TasksRepository(tasksRemoteDataSource, tasksLocalDataSource);
         }
         return INSTANCE;
     }
 
     @Override
     public Flowable<List<Task>> getTasks() {
-        List<Task> tasks = mTasksCacheDataSource.getTasks();
-        if (tasks != null) {
-            return Flowable.fromIterable(mTasksCacheDataSource.getTasks()).toList().toFlowable();
-        }
-
         return null;
-        //if (mForceRefresh) {
-        //    getTasksFromRemoteDataSource(true);
-        //} else {
-        //    getTasksFromLocalDataSource(true);
-        //}
-    }
-
-    private Flowable<List<Task>> getTasksFromLocalDataSource(boolean handleErrors) {
-        return null;
-    }
-
-    private Flowable<List<Task>> getTasksFromRemoteDataSource(boolean handleErrors) {
-        return mTasksRemoteDataSource
-                .getTasks()
-                .flatMap(tasks -> {
-                    mTasksCacheDataSource.setTasks(tasks);
-                    mTasksLocalDataSource.setTasks(tasks);
-                    mForceRefresh = false;
-                    return Flowable.fromIterable(tasks).toList().toFlowable();
-                })
-                .doOnError(t -> getTasksFromRemoteDataSource(handleErrors));
     }
 
     @Override
@@ -83,17 +50,22 @@ public class TasksRepository implements TasksMainDataSource {
     }
 
     @Override
-    public void updateTask(@NonNull Task task) {
+    public void completeTask(@NonNull Task task) {
 
     }
 
     @Override
-    public void deleteTask(@NonNull String taskId) {
+    public void completeTask(@NonNull String taskId) {
 
     }
 
     @Override
-    public void completedTask(@NonNull String taskId, boolean completed) {
+    public void activateTask(@NonNull Task task) {
+
+    }
+
+    @Override
+    public void activateTask(@NonNull String taskId) {
 
     }
 
@@ -104,6 +76,16 @@ public class TasksRepository implements TasksMainDataSource {
 
     @Override
     public void refreshTasks() {
+
+    }
+
+    @Override
+    public void deleteAllTasks() {
+
+    }
+
+    @Override
+    public void deleteTask(@NonNull String taskId) {
 
     }
 }

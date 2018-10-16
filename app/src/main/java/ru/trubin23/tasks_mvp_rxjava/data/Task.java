@@ -31,7 +31,7 @@ public final class Task {
     }
 
     @NonNull
-    public String getTaskId() {
+    public String getId() {
         return mId;
     }
 

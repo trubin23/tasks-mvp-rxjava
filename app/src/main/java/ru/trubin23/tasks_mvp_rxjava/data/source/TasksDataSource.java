@@ -17,11 +17,19 @@ public interface TasksDataSource {
 
     void saveTask(@NonNull Task task);
 
-    void updateTask(@NonNull Task task);
+    void completeTask(@NonNull Task task);
 
-    void deleteTask(@NonNull String taskId);
+    void completeTask(@NonNull String taskId);
 
-    void completedTask(@NonNull String taskId, boolean completed);
+    void activateTask(@NonNull Task task);
+
+    void activateTask(@NonNull String taskId);
 
     void clearCompletedTask();
+
+    void refreshTasks();
+
+    void deleteAllTasks();
+
+    void deleteTask(@NonNull String taskId);
 }

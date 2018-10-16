@@ -18,9 +18,10 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
+import ru.trubin23.tasks_mvp_rxjava.data.source.TasksDataSource;
 import ru.trubin23.tasks_mvp_rxjava.util.schedulers.BaseSchedulerProvider;
 
-public class TasksLocalRepository implements TasksLocalDataSource {
+public class TasksLocalRepository implements TasksDataSource {
 
     @Nullable
     private static TasksLocalRepository INSTANCE;
@@ -48,14 +49,6 @@ public class TasksLocalRepository implements TasksLocalDataSource {
         mBriteDatabase = sqlBrite.wrapDatabaseHelper(dbHelper, schedulerProvider.io());
 
         mTaskMapperFunction = this::getTask;
-    }
-
-    @Override
-    public void setTasks(@NonNull List<Task> tasks) {
-        mBriteDatabase.delete(Task.TABLE_NAME, null);
-        for (Task task : tasks) {
-            saveTask(task);
-        }
     }
 
     @Override
@@ -108,7 +101,7 @@ public class TasksLocalRepository implements TasksLocalDataSource {
     @Override
     public void saveTask(@NonNull Task task) {
         ContentValues values = new ContentValues();
-        values.put(Task.COLUMN_ID, task.getTaskId());
+        values.put(Task.COLUMN_ID, task.getId());
         values.put(Task.COLUMN_TITLE, task.getTitle());
         values.put(Task.COLUMN_DESCRIPTION, task.getDescription());
         values.put(Task.COLUMN_COMPLETED, task.isCompleted());
@@ -116,17 +109,33 @@ public class TasksLocalRepository implements TasksLocalDataSource {
     }
 
     @Override
-    public void updateTask(@NonNull Task task) {
+    public void completeTask(@NonNull Task task) {
+
+    }
+
+    @Override
+    public void completeTask(@NonNull String taskId) {
         ContentValues values = new ContentValues();
-        values.put(Task.COLUMN_ID, task.getTaskId());
-        values.put(Task.COLUMN_TITLE, task.getTitle());
-        values.put(Task.COLUMN_DESCRIPTION, task.getDescription());
-        values.put(Task.COLUMN_COMPLETED, task.isCompleted());
+        values.put(Task.COLUMN_COMPLETED, true);
 
         String selection = Task.COLUMN_ID + " LIKE ?";
-        String[] selectionArgs = {task.getTaskId()};
-        mBriteDatabase.update(Task.TABLE_NAME, values, SQLiteDatabase.CONFLICT_REPLACE,
-                selection, selectionArgs);
+        String[] selectionArgs = {taskId};
+        mBriteDatabase.update(Task.TABLE_NAME, values, selection, selectionArgs);
+    }
+
+    @Override
+    public void activateTask(@NonNull Task task) {
+        activateTask(task.getId());
+    }
+
+    @Override
+    public void activateTask(@NonNull String taskId) {
+        ContentValues values = new ContentValues();
+        values.put(Task.COLUMN_COMPLETED, false);
+
+        String selection = Task.COLUMN_ID + " LIKE ?";
+        String[] selectionArgs = {taskId};
+        mBriteDatabase.update(Task.TABLE_NAME, values, selection, selectionArgs);
     }
 
     @Override
@@ -137,19 +146,19 @@ public class TasksLocalRepository implements TasksLocalDataSource {
     }
 
     @Override
-    public void completedTask(@NonNull String taskId, boolean completed) {
-        ContentValues values = new ContentValues();
-        values.put(Task.COLUMN_COMPLETED, completed);
-
-        String selection = Task.COLUMN_ID + " LIKE ?";
-        String[] selectionArgs = {taskId};
-        mBriteDatabase.update(Task.TABLE_NAME, values, selection, selectionArgs);
-    }
-
-    @Override
     public void clearCompletedTask() {
         String selection = Task.COLUMN_COMPLETED + " LIKE ?";
         String[] selectionArgs = {"1"};
         mBriteDatabase.delete(Task.TABLE_NAME, selection, selectionArgs);
+    }
+
+    @Override
+    public void refreshTasks() {
+
+    }
+
+    @Override
+    public void deleteAllTasks() {
+
     }
 }
