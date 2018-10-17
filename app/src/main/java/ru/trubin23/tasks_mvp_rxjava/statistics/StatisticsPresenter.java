@@ -23,7 +23,7 @@ public class StatisticsPresenter implements StatisticsContract.Presenter {
         mTasksView = tasksView;
         mSchedulerProvider = schedulerProvider;
 
-        //mTasksView.setPresenter(this);
+        mTasksView.setPresenter(this);
     }
 
     @Override
