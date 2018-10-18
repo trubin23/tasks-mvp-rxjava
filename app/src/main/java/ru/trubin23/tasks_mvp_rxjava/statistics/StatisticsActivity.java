@@ -22,7 +22,7 @@ public class StatisticsActivity extends AppCompatActivity {
                     getSupportFragmentManager(), statisticsFragment, R.id.content_frame);
         }
 
-        StatisticsPresenter tasksPresenter = new StatisticsPresenter(
+        StatisticsPresenter statisticsPresenter = new StatisticsPresenter(
                 Injection.provideTasksRepository(getApplicationContext()),
                 statisticsFragment,
                 Injection.provideSchedulerProvider());
