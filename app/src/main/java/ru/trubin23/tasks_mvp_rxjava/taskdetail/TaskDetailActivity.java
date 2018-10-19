@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import ru.trubin23.tasks_mvp_rxjava.Injection;
 import ru.trubin23.tasks_mvp_rxjava.R;
-import ru.trubin23.tasks_mvp_rxjava.tasks.TasksFragment;
-import ru.trubin23.tasks_mvp_rxjava.tasks.TasksPresenter;
 import ru.trubin23.tasks_mvp_rxjava.util.ActivityUtils;
 
 public class TaskDetailActivity extends AppCompatActivity {
