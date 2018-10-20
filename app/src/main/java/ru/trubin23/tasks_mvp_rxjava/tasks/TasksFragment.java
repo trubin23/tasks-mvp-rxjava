@@ -33,4 +33,9 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     public void setLoadingIndicator(boolean active) {
 
     }
+
+    @Override
+    public void showLoadingTasksError() {
+
+    }
 }

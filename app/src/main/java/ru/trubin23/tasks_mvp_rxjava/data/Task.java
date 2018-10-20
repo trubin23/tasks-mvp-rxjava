@@ -48,4 +48,8 @@ public final class Task {
     public boolean isCompleted() {
         return mCompleted;
     }
+
+    public boolean isActive() {
+        return !mCompleted;
+    }
 }
