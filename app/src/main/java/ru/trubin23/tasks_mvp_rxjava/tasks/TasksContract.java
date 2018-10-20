@@ -10,6 +10,6 @@ public interface TasksContract {
     }
 
     interface Presenter extends BasePresenter {
-
+        void loadTasks(boolean forceUpdate);
     }
 }
