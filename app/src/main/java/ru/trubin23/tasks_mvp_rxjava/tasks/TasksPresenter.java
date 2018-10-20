@@ -2,7 +2,9 @@ package ru.trubin23.tasks_mvp_rxjava.tasks;
 
 import android.support.annotation.NonNull;
 
+import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import ru.trubin23.tasks_mvp_rxjava.data.source.TasksRepository;
 import ru.trubin23.tasks_mvp_rxjava.util.schedulers.BaseSchedulerProvider;
 
@@ -49,6 +51,16 @@ public class TasksPresenter implements TasksContract.Presenter {
     }
 
     private void loadTasks(boolean forceUpdate, final boolean showLoadingUI) {
+        if (showLoadingUI){
+            mTasksView.setLoadingIndicator(true);
+        }
+        if (forceUpdate){
+            mTasksRepository.refreshTasks();
+        }
 
+        mCompositeDisposable.clear();
+//        Disposable disposable = mTasksRepository
+//                .getTasks()
+//                .flatMap(Flowable::fromIterable)
     }
 }

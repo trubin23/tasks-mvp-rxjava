@@ -29,5 +29,8 @@ public class TasksFragment extends Fragment implements TasksContract.View {
         mPresenter.unsubscribe();
     }
 
+    @Override
+    public void setLoadingIndicator(boolean active) {
 
+    }
 }
