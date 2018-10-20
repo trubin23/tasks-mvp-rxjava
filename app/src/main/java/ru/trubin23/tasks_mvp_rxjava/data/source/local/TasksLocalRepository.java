@@ -110,7 +110,7 @@ public class TasksLocalRepository implements TasksDataSource {
 
     @Override
     public void completeTask(@NonNull Task task) {
-
+        completeTask(task.getId());
     }
 
     @Override
@@ -154,11 +154,11 @@ public class TasksLocalRepository implements TasksDataSource {
 
     @Override
     public void refreshTasks() {
-
+        //ignore
     }
 
     @Override
     public void deleteAllTasks() {
-
+        mBriteDatabase.delete(Task.TABLE_NAME, null);
     }
 }
