@@ -11,7 +11,7 @@ import ru.trubin23.tasks_mvp_rxjava.data.Task;
 import ru.trubin23.tasks_mvp_rxjava.data.source.TasksRepository;
 import ru.trubin23.tasks_mvp_rxjava.util.schedulers.BaseSchedulerProvider;
 
-import static ru.trubin23.tasks_mvp_rxjava.tasks.TasksFilterType.*;
+import static ru.trubin23.tasks_mvp_rxjava.tasks.TasksFilterType.ALL_TASKS;
 
 public class TasksPresenter implements TasksContract.Presenter {
 
@@ -85,15 +85,15 @@ public class TasksPresenter implements TasksContract.Presenter {
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe(tasks -> {
-                    processTasks(tasks);
-                    mTasksView.setLoadingIndicator(false);
-                },
-                throwable -> mTasksView.showLoadingTasksError());
+                            processTasks(tasks);
+                            mTasksView.setLoadingIndicator(false);
+                        },
+                        throwable -> mTasksView.showLoadingTasksError());
 
     }
 
     private void processTasks(List<Task> tasks) {
-        if (tasks.isEmpty()){
+        if (tasks.isEmpty()) {
             processEmptyTasks();
         } else {
             mTasksView.showTasks(tasks);
@@ -127,5 +127,15 @@ public class TasksPresenter implements TasksContract.Presenter {
                 mTasksView.showAllFilterLabel();
                 break;
         }
+    }
+
+    @Override
+    public void setFiltering(TasksFilterType filterType) {
+        mFilterType = filterType;
+    }
+
+    @Override
+    public TasksFilterType getFiltering() {
+        return null;
     }
 }

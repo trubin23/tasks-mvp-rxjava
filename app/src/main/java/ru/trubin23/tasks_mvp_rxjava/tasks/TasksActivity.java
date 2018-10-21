@@ -17,7 +17,7 @@ public class TasksActivity extends AppCompatActivity {
         TasksFragment tasksFragment =
                 (TasksFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
         if (tasksFragment == null) {
-            tasksFragment = new TasksFragment();
+            tasksFragment = TasksFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), tasksFragment, R.id.content_frame);
         }
