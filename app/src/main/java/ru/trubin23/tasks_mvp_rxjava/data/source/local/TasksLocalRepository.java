@@ -146,6 +146,11 @@ public class TasksLocalRepository implements TasksDataSource {
     }
 
     @Override
+    public void clearCompletedTasks() {
+
+    }
+
+    @Override
     public void clearCompletedTask() {
         String selection = Task.COLUMN_COMPLETED + " LIKE ?";
         String[] selectionArgs = {"1"};

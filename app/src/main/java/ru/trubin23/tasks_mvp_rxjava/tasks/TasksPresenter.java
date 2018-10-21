@@ -138,4 +138,13 @@ public class TasksPresenter implements TasksContract.Presenter {
     public TasksFilterType getFiltering() {
         return null;
     }
+
+    @Override
+    public void clearCompletedTasks() {
+        mTasksRepository.clearCompletedTasks();
+        if (mTasksView != null) {
+            mTasksView.showCompletedTasksCleared();
+        }
+        loadTasks(false);
+    }
 }

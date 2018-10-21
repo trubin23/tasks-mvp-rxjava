@@ -90,4 +90,9 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     public void showNoTasks() {
 
     }
+
+    @Override
+    public void showCompletedTasksCleared() {
+
+    }
 }

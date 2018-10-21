@@ -88,4 +88,9 @@ public class TasksRepository implements TasksDataSource {
     public void deleteTask(@NonNull String taskId) {
 
     }
+
+    @Override
+    public void clearCompletedTasks() {
+
+    }
 }

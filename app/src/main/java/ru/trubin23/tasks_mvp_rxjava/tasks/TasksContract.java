@@ -26,6 +26,8 @@ public interface TasksContract {
         void showNoCompletedTasks();
 
         void showNoTasks();
+
+        void showCompletedTasksCleared();
     }
 
     interface Presenter extends BasePresenter {
@@ -34,5 +36,7 @@ public interface TasksContract {
         void setFiltering(TasksFilterType filterType);
 
         TasksFilterType getFiltering();
+
+        void clearCompletedTasks();
     }
 }
