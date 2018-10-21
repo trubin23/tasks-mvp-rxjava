@@ -14,6 +14,18 @@ public interface TasksContract {
         void showLoadingTasksError();
 
         void showTasks(List<Task> tasks);
+
+        void showActiveFilterLabel();
+
+        void showCompletedFilterLabel();
+
+        void showAllFilterLabel();
+
+        void showNoActiveTasks();
+
+        void showNoCompletedTasks();
+
+        void showNoTasks();
     }
 
     interface Presenter extends BasePresenter {

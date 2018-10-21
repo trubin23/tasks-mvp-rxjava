@@ -102,19 +102,29 @@ public class TasksPresenter implements TasksContract.Presenter {
     }
 
     private void processEmptyTasks() {
-
+        switch (mFilterType) {
+            case ACTIVE_TASKS:
+                mTasksView.showNoActiveTasks();
+                break;
+            case COMPLETED_TASKS:
+                mTasksView.showNoCompletedTasks();
+                break;
+            case ALL_TASKS:
+                mTasksView.showNoTasks();
+                break;
+        }
     }
 
     private void showFilterLabel() {
         switch (mFilterType) {
             case ACTIVE_TASKS:
-                //mTasksView.showActiveFilterLabel();
+                mTasksView.showActiveFilterLabel();
                 break;
             case COMPLETED_TASKS:
-                //mTasksView.showCompletedFilterLabel();
+                mTasksView.showCompletedFilterLabel();
                 break;
             case ALL_TASKS:
-                //mTasksView.showAllFilterLabel();
+                mTasksView.showAllFilterLabel();
                 break;
         }
     }
