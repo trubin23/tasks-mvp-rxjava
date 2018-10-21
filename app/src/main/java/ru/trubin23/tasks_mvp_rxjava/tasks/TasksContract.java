@@ -1,7 +1,10 @@
 package ru.trubin23.tasks_mvp_rxjava.tasks;
 
+import java.util.List;
+
 import ru.trubin23.tasks_mvp_rxjava.BasePresenter;
 import ru.trubin23.tasks_mvp_rxjava.BaseView;
+import ru.trubin23.tasks_mvp_rxjava.data.Task;
 
 public interface TasksContract {
 
@@ -9,6 +12,8 @@ public interface TasksContract {
         void setLoadingIndicator(boolean active);
 
         void showLoadingTasksError();
+
+        void showTasks(List<Task> tasks);
     }
 
     interface Presenter extends BasePresenter {

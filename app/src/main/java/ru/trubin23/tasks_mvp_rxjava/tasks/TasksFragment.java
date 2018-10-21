@@ -3,6 +3,10 @@ package ru.trubin23.tasks_mvp_rxjava.tasks;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import java.util.List;
+
+import ru.trubin23.tasks_mvp_rxjava.data.Task;
+
 public class TasksFragment extends Fragment implements TasksContract.View {
 
     private TasksContract.Presenter mPresenter;
@@ -36,6 +40,11 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showLoadingTasksError() {
+
+    }
+
+    @Override
+    public void showTasks(List<Task> tasks) {
 
     }
 }
