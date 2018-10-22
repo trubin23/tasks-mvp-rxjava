@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tasks_frag, container, false);
+
+        ListView listView = view.findViewById(R.id.list_tasks);
+
         return view;
     }
 
