@@ -1,40 +1,48 @@
 package ru.trubin23.tasks_mvp_rxjava.tasks.tasklist;
 
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import java.util.List;
 
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
 
-public class TasksAdapter extends BaseAdapter {
+public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskHolder> {
 
     private List<Task> mTasks;
     private TaskItemListener mItemListener;
 
-    public TasksAdapter(List<Task> tasks, TaskItemListener itemListener){
+    public TasksAdapter(List<Task> tasks, TaskItemListener itemListener) {
         //TODO: set tasks
         mItemListener = itemListener;
     }
 
-    @Override
-    public int getCount() {
-        return 0;
-    }
 
+    @NonNull
     @Override
-    public Object getItem(int i) {
+    public TasksAdapter.TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
     }
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public void onBindViewHolder(@NonNull TasksAdapter.TaskHolder holder, int position) {
+
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+    public int getItemCount() {
+        return 0;
+    }
+
+    class TaskHolder extends RecyclerView.ViewHolder {
+
+        public TaskHolder(View itemView) {
+            super(itemView);
+        }
+
+        void setTask(@NonNull Task task) {
+        }
     }
 }

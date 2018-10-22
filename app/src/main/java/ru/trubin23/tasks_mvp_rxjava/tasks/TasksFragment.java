@@ -9,14 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.trubin23.tasks_mvp_rxjava.R;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
+import ru.trubin23.tasks_mvp_rxjava.tasks.tasklist.TaskItemListener;
+import ru.trubin23.tasks_mvp_rxjava.tasks.tasklist.TasksAdapter;
 
 public class TasksFragment extends Fragment implements TasksContract.View {
 
     private TasksContract.Presenter mPresenter;
+
+    private TasksAdapter mTasksAdapter;
+
+    private TaskItemListener mTaskItemListener = null;
 
     @NonNull
     public static TasksFragment newInstance() {
@@ -26,6 +33,12 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     @Override
     public void setPresenter(TasksContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mTasksAdapter = new TasksAdapter(new ArrayList<>(0), mTaskItemListener);
     }
 
     @Nullable
