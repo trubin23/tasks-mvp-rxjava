@@ -7,6 +7,7 @@ public interface TaskDetailContract {
 
     interface View extends BaseView<Presenter> {
 
+        void showMissingTask();
     }
 
     interface Presenter extends BasePresenter {

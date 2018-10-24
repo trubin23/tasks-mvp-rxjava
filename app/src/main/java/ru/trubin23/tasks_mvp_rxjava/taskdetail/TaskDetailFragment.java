@@ -28,4 +28,9 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
         super.onPause();
         mPresenter.unsubscribe();
     }
+
+    @Override
+    public void showMissingTask() {
+
+    }
 }

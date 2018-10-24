@@ -40,6 +40,7 @@ public class TasksPresenter implements TasksContract.Presenter {
         mSchedulerProvider = schedulerProvider;
 
         mTasksView.setPresenter(this);
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
