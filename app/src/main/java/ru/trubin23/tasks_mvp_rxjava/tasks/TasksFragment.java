@@ -3,7 +3,9 @@ package ru.trubin23.tasks_mvp_rxjava.tasks;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +48,11 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tasks_frag, container, false);
 
-        ListView listView = view.findViewById(R.id.list_tasks);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(mTasksAdapter);
+
+        FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add_task);
+        floatingActionButton.setOnClickListener(__->mPresenter.addNewTask());
 
         return view;
     }

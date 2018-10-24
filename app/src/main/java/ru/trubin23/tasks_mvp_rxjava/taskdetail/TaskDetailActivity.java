@@ -28,4 +28,10 @@ public class TaskDetailActivity extends AppCompatActivity {
                 taskDetailFragment,
                 Injection.provideSchedulerProvider());
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }

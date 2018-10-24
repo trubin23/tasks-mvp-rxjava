@@ -38,5 +38,7 @@ public interface TasksContract {
         TasksFilterType getFiltering();
 
         void clearCompletedTasks();
+
+        void addNewTask();
     }
 }
