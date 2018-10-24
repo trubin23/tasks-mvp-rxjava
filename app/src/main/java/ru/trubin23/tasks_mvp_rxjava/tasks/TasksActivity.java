@@ -1,6 +1,7 @@
 package ru.trubin23.tasks_mvp_rxjava.tasks;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 import ru.trubin23.tasks_mvp_rxjava.Injection;
@@ -8,6 +9,10 @@ import ru.trubin23.tasks_mvp_rxjava.R;
 import ru.trubin23.tasks_mvp_rxjava.util.ActivityUtils;
 
 public class TasksActivity extends AppCompatActivity {
+
+    private static final String CURRENT_FILTERING_KEY = "CURRENT_FILTERING_KEY";
+
+    private TasksPresenter mTasksPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +27,22 @@ public class TasksActivity extends AppCompatActivity {
                     getSupportFragmentManager(), tasksFragment, R.id.content_frame);
         }
 
-        TasksPresenter tasksPresenter = new TasksPresenter(
+        mTasksPresenter = new TasksPresenter(
                 Injection.provideTasksRepository(getApplicationContext()),
                 tasksFragment,
                 Injection.provideSchedulerProvider());
+
+        if (savedInstanceState != null) {
+            TasksFilterType tasksFilterType =
+                    (TasksFilterType) savedInstanceState.getSerializable(CURRENT_FILTERING_KEY);
+            mTasksPresenter.setFiltering(tasksFilterType);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        outState.putSerializable(CURRENT_FILTERING_KEY, mTasksPresenter.getFiltering());
+
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 }
