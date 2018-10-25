@@ -5,4 +5,8 @@
     <string name="task_list">Task list</string>
 
     <string name="no_tasks_all">You have no tasks!</string>
+
+    <string name="menu_all">All</string>
+    <string name="menu_active">Active</string>
+    <string name="menu_completed">Completed</string>
 </resources>
