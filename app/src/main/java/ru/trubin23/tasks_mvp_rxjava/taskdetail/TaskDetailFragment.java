@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,6 +37,14 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
         //        .setOnClickListener{() -> mPresenter.editTask() }
 
         return root;
+    }
+
+    override Boolean onOptionsItemSelected(MenuItem item)  {
+        boolean deletePressed = item.itemId == R.id.menu_delete;
+        if (deletePressed) {
+            mPresenter.deleteTask();
+        }
+        return deletePressed;
     }
 
 

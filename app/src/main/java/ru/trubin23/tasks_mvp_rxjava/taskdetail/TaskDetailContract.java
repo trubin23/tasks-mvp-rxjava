@@ -12,5 +12,6 @@ public interface TaskDetailContract {
 
     interface Presenter extends BasePresenter {
 
+        void editTask();
     }
 }
