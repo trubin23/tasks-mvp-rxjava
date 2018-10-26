@@ -55,4 +55,14 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
             return;
         }
     }
+
+    @Override
+    public void editTask() {
+
+    }
+
+    @Override
+    public void deleteTask() {
+
+    }
 }

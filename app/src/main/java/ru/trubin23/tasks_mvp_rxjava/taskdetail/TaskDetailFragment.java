@@ -39,8 +39,8 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
         return root;
     }
 
-    override Boolean onOptionsItemSelected(MenuItem item)  {
-        boolean deletePressed = item.itemId == R.id.menu_delete;
+    public boolean onOptionsItemSelected(MenuItem item)  {
+        boolean deletePressed = item.getItemId() == R.id.menu_delete;
         if (deletePressed) {
             mPresenter.deleteTask();
         }
