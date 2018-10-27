@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +95,27 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     }
 
     private void showFilteringPopUpMenu() {
+        PopupMenu popupMenu = new PopupMenu(getContext(),
+                getActivity().findViewById(R.id.menu_filter));
+        popupMenu.getMenuInflater().inflate(R.menu.filter_tasks, popupMenu.getMenu());
 
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_active:
+                    mPresenter.setFiltering(TasksFilterType.ACTIVE_TASKS);
+                    break;
+                case R.id.menu_completed:
+                    mPresenter.setFiltering(TasksFilterType.COMPLETED_TASKS);
+                    break;
+                default:
+                    mPresenter.setFiltering(TasksFilterType.ALL_TASKS);
+                    break;
+            }
+            mPresenter.loadTasks(false);
+            return true;
+        });
+
+        popupMenu.show();
     }
 
     @Override
