@@ -7,6 +7,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -67,6 +70,31 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     public void onPause() {
         super.onPause();
         mPresenter.unsubscribe();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.tasks_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_filter:
+                showFilteringPopUpMenu();
+                return true;
+            case R.id.menu_refresh:
+                mPresenter.loadTasks(true);
+                return true;
+            case R.id.menu_clear:
+                mPresenter.clearCompletedTasks();
+                return true;
+        }
+        return false;
+    }
+
+    private void showFilteringPopUpMenu() {
+
     }
 
     @Override
