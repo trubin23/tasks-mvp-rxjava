@@ -8,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import ru.trubin23.tasks_mvp_rxjava.R;
 
 public class TaskDetailFragment extends Fragment implements TaskDetailContract.View {
 
     private TaskDetailContract.Presenter mPresenter;
+
+    TextView mDetailTitle;
+    TextView mDetailDescription;
 
     @NonNull
     public static TaskDetailFragment newInstance() {
@@ -27,13 +31,17 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.task_detail_frag, container, false);
 
         setHasOptionsMenu(true);
 
-        //getActivity().findViewById((R.id.fab_edit_task)
-        //        .setOnClickListener{() -> mPresenter.editTask() }
+        mDetailTitle = root.findViewById(R.id.task_detail_title);
+        mDetailDescription = root.findViewById(R.id.task_detail_description);
+
+        getActivity().findViewById(R.id.fab_edit_task)
+                .setOnClickListener(view -> mPresenter.editTask());
 
         return root;
     }
