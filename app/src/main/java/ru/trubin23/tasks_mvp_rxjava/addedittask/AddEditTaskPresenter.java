@@ -41,4 +41,9 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
     public void unsubscribe() {
 
     }
+
+    @Override
+    public void saveTask(String title, String description) {
+
+    }
 }
