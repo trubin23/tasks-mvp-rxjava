@@ -27,7 +27,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         AddEditTaskFragment addEditTaskFragment = (AddEditTaskFragment)
                 getSupportFragmentManager().findFragmentById(R.id.content_frame);
         if (addEditTaskFragment == null) {
-            addEditTaskFragment = new AddEditTaskFragment();
+            addEditTaskFragment = AddEditTaskFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), addEditTaskFragment, R.id.content_frame);
         }

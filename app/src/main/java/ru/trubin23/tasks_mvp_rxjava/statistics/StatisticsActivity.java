@@ -32,7 +32,7 @@ public class StatisticsActivity extends AppCompatActivity {
         StatisticsFragment statisticsFragment =
                 (StatisticsFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
         if (statisticsFragment == null) {
-            statisticsFragment = new StatisticsFragment();
+            statisticsFragment = StatisticsFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), statisticsFragment, R.id.content_frame);
         }
