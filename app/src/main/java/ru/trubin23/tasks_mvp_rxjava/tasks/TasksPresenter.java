@@ -11,7 +11,9 @@ import ru.trubin23.tasks_mvp_rxjava.data.Task;
 import ru.trubin23.tasks_mvp_rxjava.data.source.TasksRepository;
 import ru.trubin23.tasks_mvp_rxjava.util.schedulers.BaseSchedulerProvider;
 
+import static ru.trubin23.tasks_mvp_rxjava.tasks.TasksFilterType.ACTIVE_TASKS;
 import static ru.trubin23.tasks_mvp_rxjava.tasks.TasksFilterType.ALL_TASKS;
+import static ru.trubin23.tasks_mvp_rxjava.tasks.TasksFilterType.COMPLETED_TASKS;
 
 public class TasksPresenter implements TasksContract.Presenter {
 
@@ -152,5 +154,33 @@ public class TasksPresenter implements TasksContract.Presenter {
     @Override
     public void addNewTask() {
 
+    }
+
+    private void showTasks(@NonNull List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            showEmptyTasks();
+        } else {
+            if (mTasksView != null) {
+                mTasksView.showTasks(tasks);
+            }
+            showFilterLabel();
+        }
+    }
+
+    private void showEmptyTasks() {
+        if (mTasksView == null) {
+            return;
+        }
+        switch (mFilterType) {
+            case ACTIVE_TASKS:
+                mTasksView.showNoActiveTasks();
+                break;
+            case COMPLETED_TASKS:
+                mTasksView.showNoCompletedTasks();
+                break;
+            case ALL_TASKS:
+                mTasksView.showNoTasks();
+                break;
+        }
     }
 }
