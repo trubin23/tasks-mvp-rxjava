@@ -9,6 +9,10 @@ public interface AddEditTaskContract {
 
     interface View extends BaseView<Presenter> {
 
+        void showEmptyTaskError();
+
+        void showTaskList();
+
         void setTitle(@NonNull String title);
 
         void setDescription(@NonNull String description);
