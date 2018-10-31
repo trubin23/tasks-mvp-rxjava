@@ -57,4 +57,14 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskContract
         super.onPause();
         mPresenter.unsubscribe();
     }
+
+    @Override
+    public void setTitle(@NonNull String title) {
+        mTitle.setText(title);
+    }
+
+    @Override
+    public void setDescription(@NonNull String description) {
+        mDescription.setText(description);
+    }
 }
