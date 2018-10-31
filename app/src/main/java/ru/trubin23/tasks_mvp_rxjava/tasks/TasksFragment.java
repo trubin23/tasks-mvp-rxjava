@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,8 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     private TasksAdapter mTasksAdapter;
 
     private TaskItemListener mTaskItemListener = null;
+
+    private TextView mFilteringLabel;
 
     @NonNull
     public static TasksFragment newInstance() {
@@ -51,6 +54,8 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tasks_frag, container, false);
+
+        mFilteringLabel = view.findViewById(R.id.filtering_label);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(mTasksAdapter);
@@ -135,17 +140,17 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showActiveFilterLabel() {
-
+        mFilteringLabel.setText(R.string.label_active);
     }
 
     @Override
     public void showCompletedFilterLabel() {
-
+        mFilteringLabel.setText(R.string.label_completed);
     }
 
     @Override
     public void showAllFilterLabel() {
-
+        mFilteringLabel.setText(R.string.label_all);
     }
 
     @Override

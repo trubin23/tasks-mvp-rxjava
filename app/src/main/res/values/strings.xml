@@ -12,7 +12,11 @@
 
     <string name="menu_delete_task">Delete task</string>
 
-    <string name="menu_filter" >Filter</string>
-    <string name="menu_clear" >Clear completed</string>
-    <string name="menu_refresh" >Refresh</string>
+    <string name="menu_filter">Filter</string>
+    <string name="menu_clear">Clear completed</string>
+    <string name="menu_refresh">Refresh</string>
+
+    <string name="label_all">All tasks</string>
+    <string name="label_active">Active tasks</string>
+    <string name="label_completed">Completed tasks</string>
 </resources>
