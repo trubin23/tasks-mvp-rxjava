@@ -139,7 +139,7 @@ public class TasksPresenter implements TasksContract.Presenter {
 
     @Override
     public TasksFilterType getFiltering() {
-        return null;
+        return mFilterType;
     }
 
     @Override
