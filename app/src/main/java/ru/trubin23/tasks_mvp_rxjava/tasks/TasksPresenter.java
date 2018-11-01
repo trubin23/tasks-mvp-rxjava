@@ -183,4 +183,15 @@ public class TasksPresenter implements TasksContract.Presenter {
                 break;
         }
     }
+
+    @Override
+    public void changeCompletedTask(@NonNull String taskId, boolean completed) {
+        if (completed) {
+            mTasksRepository.completeTask(taskId);
+            mTasksView.showTaskMarkedComplete();
+        } else {
+            mTasksRepository.activateTask(taskId);
+            mTasksView.showTaskMarkedActive();
+        }
+    }
 }

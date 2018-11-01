@@ -1,5 +1,7 @@
 package ru.trubin23.tasks_mvp_rxjava.tasks;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import ru.trubin23.tasks_mvp_rxjava.BasePresenter;
@@ -28,6 +30,10 @@ public interface TasksContract {
         void showNoTasks();
 
         void showCompletedTasksCleared();
+
+        void showTaskMarkedComplete();
+
+        void showTaskMarkedActive();
     }
 
     interface Presenter extends BasePresenter {
@@ -40,5 +46,7 @@ public interface TasksContract {
         void clearCompletedTasks();
 
         void addNewTask();
+
+        void changeCompletedTask(@NonNull String taskId, boolean completed);
     }
 }

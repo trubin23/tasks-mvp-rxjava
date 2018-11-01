@@ -172,4 +172,14 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     public void showCompletedTasksCleared() {
 
     }
+
+    @Override
+    public void showTaskMarkedComplete() {
+
+    }
+
+    @Override
+    public void showTaskMarkedActive() {
+
+    }
 }

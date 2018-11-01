@@ -19,4 +19,6 @@
     <string name="label_all">All tasks</string>
     <string name="label_active">Active tasks</string>
     <string name="label_completed">Completed tasks</string>
+
+    <string name="empty_task_message">Task cannot be empty</string>
 </resources>
