@@ -8,6 +8,10 @@ public interface TaskDetailContract {
     interface View extends BaseView<Presenter> {
 
         void showMissingTask();
+
+        void showEditTask(String taskId);
+
+        void showTaskDeleted(String taskId);
     }
 
     interface Presenter extends BasePresenter {

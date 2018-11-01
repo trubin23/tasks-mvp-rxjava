@@ -71,4 +71,14 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
     public void showMissingTask() {
 
     }
+
+    @Override
+    public void showEditTask(String taskId) {
+
+    }
+
+    @Override
+    public void showTaskDeleted(String taskId) {
+
+    }
 }
