@@ -3,6 +3,10 @@ package ru.trubin23.tasks_mvp_rxjava.data;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.common.base.Strings;
+
+import java.util.UUID;
+
 public final class Task {
 
     public static final String TABLE_NAME = "tasks";
@@ -30,6 +34,15 @@ public final class Task {
         mCompleted = completed;
     }
 
+    public Task(@NonNull String title, @NonNull String description,
+                @NonNull String taskId){
+        this(title, description, taskId, false);
+    }
+
+    public Task(@NonNull String title, @NonNull String description){
+        this(title, description, UUID.randomUUID().toString(), false);
+    }
+
     @NonNull
     public String getId() {
         return mId;
@@ -51,5 +64,10 @@ public final class Task {
 
     public boolean isActive() {
         return !mCompleted;
+    }
+
+    public boolean isEmpty(){
+        return Strings.isNullOrEmpty(mTitle) ||
+                Strings.isNullOrEmpty(mDescription);
     }
 }

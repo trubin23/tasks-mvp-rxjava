@@ -77,7 +77,7 @@ public class TasksLocalRepository implements TasksDataSource {
         boolean completed =
                 cursor.getInt(cursor.getColumnIndexOrThrow(Task.COLUMN_COMPLETED)) == 1;
 
-        return new Task(itemId, title, description, completed);
+        return new Task(title, description, itemId, completed);
     }
 
     @Override

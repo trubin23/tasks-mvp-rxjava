@@ -43,6 +43,11 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
 
     }
 
+
+    private boolean isNewTask() {
+        return mTaskId == null;
+    }
+
     @Override
     public void saveTask(String title, String description) {
         Task task;
@@ -53,18 +58,10 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
         }
 
         if (task.isEmpty()) {
-            if (mAddEditTaskView != null) {
-                mAddEditTaskView.showEmptyTaskError();
-            }
+            mAddEditTaskView.showEmptyTaskError();
         } else {
-            if (isNewTask()) {
-                mTasksRepository.saveTask(task);
-            } else {
-                mTasksRepository.updateTask(task);
-            }
-            if (mAddEditTaskView != null) {
-                mAddEditTaskView.showTaskList();
-            }
+            mTasksRepository.saveTask(task);
+            mAddEditTaskView.showTaskList();
         }
     }
 }
