@@ -1,9 +1,11 @@
 package ru.trubin23.tasks_mvp_rxjava.taskdetail;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -86,6 +88,19 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     @Override
     public void showTaskDeleted(String taskId) {
+        Activity activity = getActivity();
+        if (activity != null){
+            activity.finish();
+        }
+    }
 
+    void showTaskMarkedComplete() {
+        Snackbar.make(getView(),getString(R.string.task_marked_complete), Snackbar.LENGTH_LONG)
+                .show();
+    }
+
+    void showTaskMarkedActive() {
+        Snackbar.make(getView(),getString(R.string.task_marked_active), Snackbar.LENGTH_LONG)
+                .show();
     }
 }
