@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvp_rxjava.taskdetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,13 +12,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import ru.trubin23.tasks_mvp_rxjava.R;
+import ru.trubin23.tasks_mvp_rxjava.addedittask.AddEditTaskActivity;
 
 public class TaskDetailFragment extends Fragment implements TaskDetailContract.View {
 
+    private static final int REQUEST_EDIT_TASK = 1;
+
     private TaskDetailContract.Presenter mPresenter;
 
-    TextView mDetailTitle;
-    TextView mDetailDescription;
+    TextView mTitle;
+    TextView mDescription;
 
     @NonNull
     public static TaskDetailFragment newInstance() {
@@ -37,8 +41,8 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
         setHasOptionsMenu(true);
 
-        mDetailTitle = root.findViewById(R.id.task_detail_title);
-        mDetailDescription = root.findViewById(R.id.task_detail_description);
+        mTitle = root.findViewById(R.id.task_detail_title);
+        mDescription = root.findViewById(R.id.task_detail_description);
 
         getActivity().findViewById(R.id.fab_edit_task)
                 .setOnClickListener(view -> mPresenter.editTask());
@@ -46,7 +50,7 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
         return root;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item)  {
+    public boolean onOptionsItemSelected(MenuItem item) {
         boolean deletePressed = item.getItemId() == R.id.menu_delete;
         if (deletePressed) {
             mPresenter.deleteTask();
@@ -69,12 +73,15 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     @Override
     public void showMissingTask() {
-
+        mTitle.setText("");
+        mDescription.setText(getString(R.string.no_data));
     }
 
     @Override
     public void showEditTask(String taskId) {
-
+        Intent intent = new Intent(getContext(), AddEditTaskActivity.class);
+        intent.putExtra(AddEditTaskActivity.EXTRA_TASK_ID, taskId);
+        startActivityForResult(intent, REQUEST_EDIT_TASK);
     }
 
     @Override

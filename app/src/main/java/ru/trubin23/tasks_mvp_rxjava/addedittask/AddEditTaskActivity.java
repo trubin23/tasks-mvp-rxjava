@@ -11,6 +11,8 @@ import ru.trubin23.tasks_mvp_rxjava.util.ActivityUtils;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
+    public static final String EXTRA_TASK_ID = "EXTRA_TASK_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
