@@ -9,9 +9,15 @@ public interface TaskDetailContract {
 
         void showMissingTask();
 
+        void showCompletionStatus(boolean complete);
+
         void showEditTask(String taskId);
 
         void showTaskDeleted(String taskId);
+
+        void showTaskMarkedComplete();
+
+        void showTaskMarkedActive();
     }
 
     interface Presenter extends BasePresenter {

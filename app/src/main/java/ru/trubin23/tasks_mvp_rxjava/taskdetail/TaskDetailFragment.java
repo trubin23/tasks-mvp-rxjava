@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import ru.trubin23.tasks_mvp_rxjava.R;
@@ -24,6 +25,7 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     TextView mTitle;
     TextView mDescription;
+    CheckBox mCompleteStatus;
 
     @NonNull
     public static TaskDetailFragment newInstance() {
@@ -45,6 +47,7 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
         mTitle = root.findViewById(R.id.task_detail_title);
         mDescription = root.findViewById(R.id.task_detail_description);
+        mCompleteStatus = root.findViewById(R.id.task_detail_complete);
 
         getActivity().findViewById(R.id.fab_edit_task)
                 .setOnClickListener(view -> mPresenter.editTask());
@@ -80,6 +83,11 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
     }
 
     @Override
+    public void showCompletionStatus(boolean complete) {
+        mCompleteStatus.setChecked(complete);
+    }
+
+    @Override
     public void showEditTask(String taskId) {
         Intent intent = new Intent(getContext(), AddEditTaskActivity.class);
         intent.putExtra(AddEditTaskActivity.EXTRA_TASK_ID, taskId);
@@ -94,12 +102,14 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
         }
     }
 
-    void showTaskMarkedComplete() {
+    @Override
+    public void showTaskMarkedComplete() {
         Snackbar.make(getView(),getString(R.string.task_marked_complete), Snackbar.LENGTH_LONG)
                 .show();
     }
 
-    void showTaskMarkedActive() {
+    @Override
+    public void showTaskMarkedActive() {
         Snackbar.make(getView(),getString(R.string.task_marked_active), Snackbar.LENGTH_LONG)
                 .show();
     }
