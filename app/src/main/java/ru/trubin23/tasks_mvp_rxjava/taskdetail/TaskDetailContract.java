@@ -1,5 +1,7 @@
 package ru.trubin23.tasks_mvp_rxjava.taskdetail;
 
+import android.support.annotation.NonNull;
+
 import ru.trubin23.tasks_mvp_rxjava.BasePresenter;
 import ru.trubin23.tasks_mvp_rxjava.BaseView;
 
@@ -18,6 +20,10 @@ public interface TaskDetailContract {
         void showTaskMarkedComplete();
 
         void showTaskMarkedActive();
+
+        void setTitle(@NonNull String title);
+
+        void setDescription(@NonNull String description);
     }
 
     interface Presenter extends BasePresenter {

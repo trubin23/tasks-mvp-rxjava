@@ -113,4 +113,21 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
         Snackbar.make(getView(),getString(R.string.task_marked_active), Snackbar.LENGTH_LONG)
                 .show();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_EDIT_TASK){// && resultCode == ADD_RESULT_OK){
+            getActivity().finish();
+        }
+    }
+
+    @Override
+    public void setTitle(@NonNull String title) {
+        mTitle.setText(title);
+    }
+
+    @Override
+    public void setDescription(@NonNull String description) {
+        mDescription.setText(description);
+    }
 }
