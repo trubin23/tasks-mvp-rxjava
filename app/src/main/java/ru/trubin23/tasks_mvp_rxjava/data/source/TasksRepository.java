@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 
 import com.google.common.base.Optional;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
@@ -18,7 +20,9 @@ public class TasksRepository implements TasksDataSource {
     private final TasksDataSource mTasksRemoteDataSource;
     private final TasksDataSource mTasksLocalDataSource;
 
-    private boolean mForceRefresh = false;
+    private Map<String, Task> mCachedTasks;
+
+    private boolean mCacheIsDirty = false;
 
     private TasksRepository(@NonNull TasksDataSource tasksRemoteDataSource,
                             @NonNull TasksDataSource tasksLocalDataSource) {
@@ -36,6 +40,30 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public Flowable<List<Task>> getTasks() {
+        if (mCachedTasks != null && !mCacheIsDirty){
+            return Flowable.fromIterable(mCachedTasks.values()).toList().toFlowable();
+        } else if (mCachedTasks == null){
+            mCachedTasks = new LinkedHashMap<>();
+        }
+
+        Flowable<List<Task>> remoteTasks = getAndSaveRemoteTasks();
+
+        if (mCacheIsDirty){
+            return remoteTasks;
+        } else {
+            Flowable<List<Task>> localTasks = getAndCacheLocalTasks();
+            return Flowable.concat(localTasks, remoteTasks)
+                    .filter(tasks -> !tasks.isEmpty())
+                    .firstOrError()
+                    .toFlowable();
+        }
+    }
+
+    private Flowable<List<Task>> getAndCacheLocalTasks() {
+        return null;
+    }
+
+    private Flowable<List<Task>> getAndSaveRemoteTasks() {
         return null;
     }
 
