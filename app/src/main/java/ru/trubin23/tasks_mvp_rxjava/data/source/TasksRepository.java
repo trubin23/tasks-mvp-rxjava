@@ -40,15 +40,15 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public Flowable<List<Task>> getTasks() {
-        if (mCachedTasks != null && !mCacheIsDirty){
+        if (mCachedTasks != null && !mCacheIsDirty) {
             return Flowable.fromIterable(mCachedTasks.values()).toList().toFlowable();
-        } else if (mCachedTasks == null){
+        } else if (mCachedTasks == null) {
             mCachedTasks = new LinkedHashMap<>();
         }
 
         Flowable<List<Task>> remoteTasks = getAndSaveRemoteTasks();
 
-        if (mCacheIsDirty){
+        if (mCacheIsDirty) {
             return remoteTasks;
         } else {
             Flowable<List<Task>> localTasks = getAndCacheLocalTasks();
@@ -60,11 +60,23 @@ public class TasksRepository implements TasksDataSource {
     }
 
     private Flowable<List<Task>> getAndCacheLocalTasks() {
-        return null;
+        return mTasksLocalDataSource.getTasks()
+                .flatMap(tasks -> Flowable.fromIterable(tasks)
+                        .doOnNext(task -> mCachedTasks.put(task.getId(), task))
+                        .toList()
+                        .toFlowable());
     }
 
     private Flowable<List<Task>> getAndSaveRemoteTasks() {
-        return null;
+        return mTasksRemoteDataSource.getTasks()
+                .flatMap(tasks -> Flowable.fromIterable(tasks)
+                        .doOnNext(task -> {
+                            mTasksLocalDataSource.saveTask(task);
+                            mCachedTasks.put(task.getId(), task);
+                        })
+                        .toList()
+                        .toFlowable())
+                .doOnComplete(() -> mCacheIsDirty = false);
     }
 
     @Override
