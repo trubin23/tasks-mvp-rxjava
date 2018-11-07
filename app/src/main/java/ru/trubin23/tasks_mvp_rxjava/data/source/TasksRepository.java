@@ -86,7 +86,13 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void saveTask(@NonNull Task task) {
+        mTasksRemoteDataSource.saveTask(task);
+        mTasksLocalDataSource.saveTask(task);
 
+        if (mCachedTasks == null) {
+            mCachedTasks = new LinkedHashMap<>();
+        }
+        mCachedTasks.put(task.getId(), task);
     }
 
     @Override
@@ -126,7 +132,12 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void deleteTask(@NonNull String taskId) {
+        mTasksRemoteDataSource.deleteTask(taskId);
+        mTasksLocalDataSource.deleteTask(taskId);
 
+        if (mCachedTasks != null) {
+            mCachedTasks.remove(taskId);
+        }
     }
 
     @Override
