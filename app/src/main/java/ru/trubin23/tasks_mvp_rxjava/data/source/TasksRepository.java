@@ -81,7 +81,14 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public Flowable<Optional<Task>> getTask(@NonNull String taskId) {
-        return null;
+        return mTasksLocalDataSource
+                .getTask(taskId)
+                .doOnNext(taskOptional -> {
+                    if (taskOptional.isPresent()){
+                        mCachedTasks.put(taskId, taskOptional.get());
+                    }
+                })
+                .firstElement().toFlowable();
     }
 
     @Override
@@ -122,12 +129,18 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void refreshTasks() {
-
+        mCacheIsDirty = true;
     }
 
     @Override
     public void deleteAllTasks() {
+        mTasksRemoteDataSource.deleteAllTasks();
+        mTasksLocalDataSource.deleteAllTasks();
 
+        if (mCachedTasks ==null){
+            mCachedTasks = new LinkedHashMap<>();
+        }
+        mCachedTasks.clear();
     }
 
     @Override
