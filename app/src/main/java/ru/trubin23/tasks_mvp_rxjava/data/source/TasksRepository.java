@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.google.common.base.Optional;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,6 +156,18 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void clearCompletedTasks() {
+        mTasksRemoteDataSource.clearCompletedTasks();
+        mTasksLocalDataSource.clearCompletedTasks();
 
+        if (mCachedTasks == null){
+            mCachedTasks = new LinkedHashMap<>();
+        }
+        Iterator<Map.Entry<String, Task>> iterator = mCachedTasks.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String, Task> entry = iterator.next();
+            if (entry.getValue().isCompleted()){
+                iterator.remove();
+            }
+        }
     }
 }
