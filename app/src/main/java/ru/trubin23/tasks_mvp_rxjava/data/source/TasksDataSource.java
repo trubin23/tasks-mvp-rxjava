@@ -32,6 +32,4 @@ public interface TasksDataSource {
     void deleteAllTasks();
 
     void deleteTask(@NonNull String taskId);
-
-    void clearCompletedTasks();
 }

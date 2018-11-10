@@ -110,7 +110,10 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void completeTask(@NonNull String taskId) {
-
+        Task taskWithId = getTaskWithId(taskId);
+        if (taskWithId != null){
+            completeTask(taskWithId);
+        }
     }
 
     @Override
@@ -120,12 +123,18 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void activateTask(@NonNull String taskId) {
-
+        Task taskWithId = getTaskWithId(taskId);
+        if (taskWithId != null){
+            activateTask(taskWithId);
+        }
     }
 
-    @Override
-    public void clearCompletedTask() {
-
+    private Task getTaskWithId(@NonNull String taskId) {
+        if (mCachedTasks == null || mCachedTasks.isEmpty()) {
+            return null;
+        } else {
+            return mCachedTasks.get(taskId);
+        }
     }
 
     @Override
@@ -155,9 +164,9 @@ public class TasksRepository implements TasksDataSource {
     }
 
     @Override
-    public void clearCompletedTasks() {
-        mTasksRemoteDataSource.clearCompletedTasks();
-        mTasksLocalDataSource.clearCompletedTasks();
+    public void clearCompletedTask() {
+        mTasksRemoteDataSource.clearCompletedTask();
+        mTasksLocalDataSource.clearCompletedTask();
 
         if (mCachedTasks == null){
             mCachedTasks = new LinkedHashMap<>();
