@@ -105,7 +105,15 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void completeTask(@NonNull Task task) {
+        mTasksRemoteDataSource.completeTask(task);
+        mTasksLocalDataSource.completeTask(task);
 
+        Task completedTask = new Task(task.getTitle(), task.getDescription(), task.getId(), true);
+
+        if (mCachedTasks == null){
+            mCachedTasks = new LinkedHashMap<>();
+        }
+        mCachedTasks.put(task.getId(), completedTask);
     }
 
     @Override
@@ -118,7 +126,15 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void activateTask(@NonNull Task task) {
+        mTasksRemoteDataSource.activateTask(task);
+        mTasksLocalDataSource.activateTask(task);
 
+        Task activeTask = new Task(task.getTitle(), task.getDescription(), task.getId(), false);
+
+        if (mCachedTasks == null){
+            mCachedTasks = new LinkedHashMap<>();
+        }
+        mCachedTasks.put(task.getId(), activeTask);
     }
 
     @Override
