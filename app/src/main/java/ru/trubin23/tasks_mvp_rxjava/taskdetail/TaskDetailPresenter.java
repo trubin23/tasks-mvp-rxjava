@@ -52,19 +52,14 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
     private void openTask() {
         if (Strings.isNullOrEmpty(mTaskId)){
             mTaskDetailView.showMissingTask();
-            return;
         }
     }
 
     @Override
     public void editTask() {
         if (Strings.isNullOrEmpty(mTaskId)) {
-            if (mTaskDetailView != null) {
-                mTaskDetailView.showMissingTask();
-            }
-            return;
-        }
-        if (mTaskDetailView != null) {
+            mTaskDetailView.showMissingTask();
+        } else {
             mTaskDetailView.showEditTask(mTaskId);
         }
     }
@@ -72,13 +67,9 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
     @Override
     public void deleteTask() {
         if (Strings.isNullOrEmpty(mTaskId)) {
-            if (mTaskDetailView != null) {
-                mTaskDetailView.showMissingTask();
-            }
-            return;
-        }
-        mTasksRepository.deleteTask(mTaskId);
-        if (mTaskDetailView != null) {
+            mTaskDetailView.showMissingTask();
+        } else {
+            mTasksRepository.deleteTask(mTaskId);
             mTaskDetailView.showTaskDeleted(mTaskId);
         }
     }
