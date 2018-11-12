@@ -24,6 +24,8 @@ public interface TaskDetailContract {
         void setTitle(@NonNull String title);
 
         void setDescription(@NonNull String description);
+
+        void setLoadingIndicator(boolean active);
     }
 
     interface Presenter extends BasePresenter {

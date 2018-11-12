@@ -3,9 +3,11 @@ package ru.trubin23.tasks_mvp_rxjava.taskdetail;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 
 import io.reactivex.disposables.CompositeDisposable;
+import ru.trubin23.tasks_mvp_rxjava.data.Task;
 import ru.trubin23.tasks_mvp_rxjava.data.source.TasksRepository;
 import ru.trubin23.tasks_mvp_rxjava.util.schedulers.BaseSchedulerProvider;
 
@@ -50,9 +52,28 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
     }
 
     private void openTask() {
-        if (Strings.isNullOrEmpty(mTaskId)){
+        if (Strings.isNullOrEmpty(mTaskId)) {
             mTaskDetailView.showMissingTask();
+            return;
         }
+
+        mTaskDetailView.setLoadingIndicator(true);
+        mCompositeDisposable.add(mTasksRepository
+                .getTask(mTaskId)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .subscribeOn(mSchedulerProvider.computation())
+                .observeOn(mSchedulerProvider.ui())
+                .subscribe(
+                        this::showTask,
+                        throwable -> {
+                        },
+                        () -> mTaskDetailView.setLoadingIndicator(false)
+                ));
+    }
+
+    private void showTask(Task task) {
+
     }
 
     @Override

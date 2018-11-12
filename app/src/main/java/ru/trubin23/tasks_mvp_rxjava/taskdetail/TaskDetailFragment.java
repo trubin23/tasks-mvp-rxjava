@@ -130,4 +130,9 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
     public void setDescription(@NonNull String description) {
         mDescription.setText(description);
     }
+
+    @Override
+    public void setLoadingIndicator(boolean active) {
+
+    }
 }
