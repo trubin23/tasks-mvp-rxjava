@@ -73,7 +73,22 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
     }
 
     private void showTask(Task task) {
+        String title = task.getTitle();
+        String description = task.getDescription();
 
+        if (Strings.isNullOrEmpty(title)){
+            mTaskDetailView.hideTitle();
+        } else {
+            mTaskDetailView.showTitle(title);
+        }
+
+        if (Strings.isNullOrEmpty(description)){
+            mTaskDetailView.hideDescription();
+        } else {
+            mTaskDetailView.showDescription(description);
+        }
+
+        mTaskDetailView.showCompletionStatus(task.isCompleted());
     }
 
     @Override
