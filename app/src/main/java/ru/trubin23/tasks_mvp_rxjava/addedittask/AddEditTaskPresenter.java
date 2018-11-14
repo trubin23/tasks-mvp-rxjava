@@ -3,6 +3,7 @@ package ru.trubin23.tasks_mvp_rxjava.addedittask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import io.reactivex.disposables.CompositeDisposable;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
 import ru.trubin23.tasks_mvp_rxjava.data.source.TasksRepository;
 import ru.trubin23.tasks_mvp_rxjava.util.schedulers.BaseSchedulerProvider;
@@ -20,6 +21,11 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
 
     @Nullable
     private String mTaskId;
+
+    @NonNull
+    private CompositeDisposable mCompositeDisposable;
+
+    private boolean mIsDataMissing;
 
     AddEditTaskPresenter(@Nullable String taskId,
                          @NonNull TasksRepository tasksRepository,
@@ -43,6 +49,27 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
 
     }
 
+    private void populateTask() {
+        mCompositeDisposable.add(mTasksRepository
+                .getTask(mTaskId)
+                .subscribeOn(mSchedulerProvider.computation())
+                .observeOn(mSchedulerProvider.ui())
+                .subscribe(
+                        taskOptional -> {
+                            if (taskOptional.isPresent()){
+                                Task task = taskOptional.get();
+
+                                mAddEditTaskView.setTitle(task.getTitle());
+                                mAddEditTaskView.setDescription(task.getDescription());
+
+                                mIsDataMissing = false;
+                            } else {
+                                mAddEditTaskView.showEmptyTaskError();
+                            }
+                        },
+                        throwable -> mAddEditTaskView.showEmptyTaskError()
+                ));
+    }
 
     private boolean isNewTask() {
         return mTaskId == null;
