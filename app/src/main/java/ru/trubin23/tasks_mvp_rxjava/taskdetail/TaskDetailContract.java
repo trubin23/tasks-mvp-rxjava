@@ -21,11 +21,15 @@ public interface TaskDetailContract {
 
         void showTaskMarkedActive();
 
-        void setTitle(@NonNull String title);
-
-        void setDescription(@NonNull String description);
-
         void setLoadingIndicator(boolean active);
+
+        void hideTitle();
+
+        void showTitle(@NonNull String title);
+
+        void hideDescription();
+
+        void showDescription(@NonNull String description);
     }
 
     interface Presenter extends BasePresenter {

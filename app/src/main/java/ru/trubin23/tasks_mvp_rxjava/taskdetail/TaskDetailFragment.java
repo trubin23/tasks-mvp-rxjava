@@ -122,17 +122,29 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
     }
 
     @Override
-    public void setTitle(@NonNull String title) {
+    public void setLoadingIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void hideTitle() {
+        mDescription.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showTitle(@NonNull String title) {
+        mTitle.setVisibility(View.VISIBLE);
         mTitle.setText(title);
     }
 
     @Override
-    public void setDescription(@NonNull String description) {
-        mDescription.setText(description);
+    public void hideDescription() {
+        mDescription.setVisibility(View.GONE);
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
-
+    public void showDescription(@NonNull String description) {
+        mDescription.setVisibility(View.VISIBLE);
+        mDescription.setText(description);
     }
 }
