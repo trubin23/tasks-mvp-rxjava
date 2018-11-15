@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import io.reactivex.Flowable;
 import ru.trubin23.tasks_mvp_rxjava.R;
+import ru.trubin23.tasks_mvp_rxjava.data.Task;
 
 public class StatisticsFragment extends Fragment implements StatisticsContract.View {
 
@@ -48,5 +50,9 @@ public class StatisticsFragment extends Fragment implements StatisticsContract.V
     public void onPause() {
         super.onPause();
         mPresenter.unsubscribe();
+    }
+
+    @Override
+    public void setProgressIndicator(boolean active) {
     }
 }

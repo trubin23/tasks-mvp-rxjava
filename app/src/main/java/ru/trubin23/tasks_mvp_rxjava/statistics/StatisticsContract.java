@@ -7,6 +7,7 @@ public interface StatisticsContract {
 
     interface View extends BaseView<Presenter> {
 
+        void setProgressIndicator(boolean active);
     }
 
     interface Presenter extends BasePresenter {
