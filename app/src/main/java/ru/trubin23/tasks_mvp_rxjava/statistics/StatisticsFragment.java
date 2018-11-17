@@ -55,4 +55,22 @@ public class StatisticsFragment extends Fragment implements StatisticsContract.V
     @Override
     public void setProgressIndicator(boolean active) {
     }
+
+    @Override
+    public void showStatistics(int numberOfActiveTasks, int numberOfCompletedTask) {
+        if (numberOfActiveTasks == 0 && numberOfCompletedTask == 0 ){
+            mStatisticsTV.setText(getResources().getString(R.string.statistics_no_tasks));
+        } else {
+            String displayString = getString(R.string.statistics_active_tasks) + " "
+                    + numberOfActiveTasks + "\n"
+                    + getString(R.string.statistics_completed_tasks)+ " "
+                    + numberOfCompletedTask;
+            mStatisticsTV.setText(displayString);
+        }
+    }
+
+    @Override
+    public void showLoadingStatisticsError() {
+
+    }
 }

@@ -25,4 +25,8 @@
 
     <string name="task_marked_complete">Task marked complete</string>
     <string name="task_marked_active">Task marked active</string>
+
+    <string name="statistics_no_tasks">You have not tasks.</string>
+    <string name="statistics_active_tasks">Active tasks:</string>
+    <string name="statistics_completed_tasks">Completed tasks:</string>
 </resources>
