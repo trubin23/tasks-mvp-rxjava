@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import io.reactivex.Flowable;
 import ru.trubin23.tasks_mvp_rxjava.R;
-import ru.trubin23.tasks_mvp_rxjava.data.Task;
 
 public class StatisticsFragment extends Fragment implements StatisticsContract.View {
 
@@ -54,16 +52,19 @@ public class StatisticsFragment extends Fragment implements StatisticsContract.V
 
     @Override
     public void setProgressIndicator(boolean active) {
+        if (active) {
+            mStatisticsTV.setText(getString(R.string.loading));
+        }
     }
 
     @Override
     public void showStatistics(int numberOfActiveTasks, int numberOfCompletedTask) {
-        if (numberOfActiveTasks == 0 && numberOfCompletedTask == 0 ){
+        if (numberOfActiveTasks == 0 && numberOfCompletedTask == 0) {
             mStatisticsTV.setText(getResources().getString(R.string.statistics_no_tasks));
         } else {
-            String displayString = getString(R.string.statistics_active_tasks) + " "
+            String displayString = getString(R.string.statistics_active_tasks)
                     + numberOfActiveTasks + "\n"
-                    + getString(R.string.statistics_completed_tasks)+ " "
+                    + getString(R.string.statistics_completed_tasks)
                     + numberOfCompletedTask;
             mStatisticsTV.setText(displayString);
         }
@@ -71,6 +72,6 @@ public class StatisticsFragment extends Fragment implements StatisticsContract.V
 
     @Override
     public void showLoadingStatisticsError() {
-
+        mStatisticsTV.setText(getString(R.string.statistics_error));
     }
 }
