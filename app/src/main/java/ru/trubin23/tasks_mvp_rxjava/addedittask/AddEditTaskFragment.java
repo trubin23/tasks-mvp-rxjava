@@ -36,7 +36,7 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskContract
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.addtask_frag, container, false);
+        View root = inflater.inflate(R.layout.add_edit_task_task_frag, container, false);
 
         mTitle = root.findViewById(R.id.add_task_title);
         mDescription = root.findViewById(R.id.add_task_description);
