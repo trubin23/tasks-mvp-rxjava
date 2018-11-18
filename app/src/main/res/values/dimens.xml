@@ -10,4 +10,7 @@
     <dimen name="no_tasks_icon_size">50dp</dimen>
 
     <dimen name="list_item_padding">8dp</dimen>
+    <dimen name="item_padding">16dp</dimen>
+
+
 </resources>
