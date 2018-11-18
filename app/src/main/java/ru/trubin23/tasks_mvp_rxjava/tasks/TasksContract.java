@@ -34,19 +34,26 @@ public interface TasksContract {
         void showTaskMarkedComplete();
 
         void showTaskMarkedActive();
+
+        void showAddTask();
+
+        void showSuccessfullySavedMessage();
     }
 
     interface Presenter extends BasePresenter {
+
+        void result(int requestCode, int resultCode);
+
         void loadTasks(boolean forceUpdate);
 
         void setFiltering(TasksFilterType filterType);
 
-        TasksFilterType getFiltering();
-
-        void clearCompletedTasks();
+        void clearCompletedTask();
 
         void addNewTask();
 
         void changeCompletedTask(@NonNull String taskId, boolean completed);
+
+        TasksFilterType getFiltering();
     }
 }

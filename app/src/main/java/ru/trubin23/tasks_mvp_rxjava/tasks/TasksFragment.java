@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvp_rxjava.tasks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.trubin23.tasks_mvp_rxjava.R;
+import ru.trubin23.tasks_mvp_rxjava.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
 import ru.trubin23.tasks_mvp_rxjava.tasks.tasklist.TaskItemListener;
 import ru.trubin23.tasks_mvp_rxjava.tasks.tasklist.TasksAdapter;
@@ -93,7 +94,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
                 mPresenter.loadTasks(true);
                 return true;
             case R.id.menu_clear:
-                mPresenter.clearCompletedTasks();
+                mPresenter.clearCompletedTask();
                 return true;
         }
         return false;
@@ -180,6 +181,17 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showTaskMarkedActive() {
+
+    }
+
+    @Override
+    public void showAddTask() {
+        Intent intent = new Intent(getContext(), AddEditTaskActivity.class);
+        startActivityForResult(intent, AddEditTaskActivity.REQUEST_ADD_TASK);
+    }
+
+    @Override
+    public void showSuccessfullySavedMessage() {
 
     }
 }

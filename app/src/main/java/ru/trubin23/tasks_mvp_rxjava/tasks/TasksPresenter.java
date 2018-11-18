@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvp_rxjava.tasks;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -7,13 +8,12 @@ import java.util.List;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import ru.trubin23.tasks_mvp_rxjava.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
 import ru.trubin23.tasks_mvp_rxjava.data.source.TasksRepository;
 import ru.trubin23.tasks_mvp_rxjava.util.schedulers.BaseSchedulerProvider;
 
-import static ru.trubin23.tasks_mvp_rxjava.tasks.TasksFilterType.ACTIVE_TASKS;
 import static ru.trubin23.tasks_mvp_rxjava.tasks.TasksFilterType.ALL_TASKS;
-import static ru.trubin23.tasks_mvp_rxjava.tasks.TasksFilterType.COMPLETED_TASKS;
 
 public class TasksPresenter implements TasksContract.Presenter {
 
@@ -93,6 +93,7 @@ public class TasksPresenter implements TasksContract.Presenter {
                         },
                         throwable -> mTasksView.showLoadingTasksError());
 
+        mCompositeDisposable.add(disposable);
     }
 
     private void processTasks(List<Task> tasks) {
@@ -143,34 +144,35 @@ public class TasksPresenter implements TasksContract.Presenter {
     }
 
     @Override
-    public void clearCompletedTasks() {
-        mTasksRepository.clearCompletedTasks();
-        if (mTasksView != null) {
-            mTasksView.showCompletedTasksCleared();
-        }
+    public void clearCompletedTask() {
+        mTasksRepository.clearCompletedTask();
+        mTasksView.showCompletedTasksCleared();
         loadTasks(false);
     }
 
     @Override
     public void addNewTask() {
-
+        mTasksView.showAddTask();
     }
 
     private void showTasks(@NonNull List<Task> tasks) {
         if (tasks.isEmpty()) {
             showEmptyTasks();
         } else {
-            if (mTasksView != null) {
-                mTasksView.showTasks(tasks);
-            }
+            mTasksView.showTasks(tasks);
             showFilterLabel();
         }
     }
 
-    private void showEmptyTasks() {
-        if (mTasksView == null) {
-            return;
+    @Override
+    public void result(int requestCode, int resultCode) {
+        if (AddEditTaskActivity.REQUEST_ADD_TASK == requestCode &&
+                Activity.RESULT_OK == resultCode) {
+            mTasksView.showSuccessfullySavedMessage();
         }
+    }
+
+    private void showEmptyTasks() {
         switch (mFilterType) {
             case ACTIVE_TASKS:
                 mTasksView.showNoActiveTasks();
