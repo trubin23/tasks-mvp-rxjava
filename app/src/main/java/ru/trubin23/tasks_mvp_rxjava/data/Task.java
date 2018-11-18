@@ -48,14 +48,23 @@ public final class Task {
         return mId;
     }
 
-    @NonNull
+    @Nullable
     public String getTitle() {
         return mTitle;
     }
 
-    @NonNull
+    @Nullable
     public String getDescription() {
         return mDescription;
+    }
+
+    @Nullable
+    public String getTitleForList() {
+        if (!Strings.isNullOrEmpty(mTitle)){
+            return mTitle;
+        } else {
+            return mDescription;
+        }
     }
 
     public boolean isCompleted() {
