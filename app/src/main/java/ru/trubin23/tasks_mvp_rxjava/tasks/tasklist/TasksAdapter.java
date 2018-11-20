@@ -55,6 +55,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskHolder> 
 
         TaskHolder(View itemView) {
             super(itemView);
+            mTitle = itemView.findViewById(R.id.item_title);
+            mComplete = itemView.findViewById(R.id.item_completed);
         }
 
         void setTask(@NonNull Task task) {

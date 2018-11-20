@@ -13,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -34,6 +36,11 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     private TaskItemListener mTaskItemListener = null;
 
     private TextView mFilteringLabel;
+
+    private LinearLayout mTasksView;
+    private LinearLayout mNoTasksView;
+    private ImageView mNoTasksIcon;
+    private TextView mNoTasksText;
 
     @NonNull
     public static TasksFragment newInstance() {
@@ -62,7 +69,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
         recyclerView.setAdapter(mTasksAdapter);
 
         FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add_task);
-        floatingActionButton.setOnClickListener(__->mPresenter.addNewTask());
+        floatingActionButton.setOnClickListener(__ -> mPresenter.addNewTask());
 
         return view;
     }
@@ -156,17 +163,25 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showNoActiveTasks() {
-
+        showNoTasksViews(R.string.no_tasks_active, R.drawable.ic_check_circle);
     }
 
     @Override
     public void showNoCompletedTasks() {
-
+        showNoTasksViews(R.string.no_tasks_completed, R.drawable.ic_check_box);
     }
 
     @Override
     public void showNoTasks() {
+        showNoTasksViews(R.string.no_tasks_all, R.drawable.ic_verified);
+    }
 
+    private void showNoTasksViews(int textRes, int iconRes) {
+        mTasksView.setVisibility(View.GONE);
+
+        mNoTasksView.setVisibility(View.VISIBLE);
+        mNoTasksIcon.setImageDrawable(getResources().getDrawable(iconRes));
+        mNoTasksText.setText(textRes);
     }
 
     @Override

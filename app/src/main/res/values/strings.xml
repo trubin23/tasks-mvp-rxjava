@@ -4,6 +4,8 @@
     <string name="statistics">Statistics</string>
     <string name="task_list">Task list</string>
 
+    <string name="no_tasks_active">You have no active tasks!</string>
+    <string name="no_tasks_completed">You have no completed tasks!</string>
     <string name="no_tasks_all">You have no tasks!</string>
 
     <string name="menu_all">All</string>
