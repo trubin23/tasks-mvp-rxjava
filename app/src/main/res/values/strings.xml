@@ -36,4 +36,6 @@
     <string name="statistics_error">Error loading statistics.</string>
 
     <string name="successfully_saved_task_message">Task saved</string>
+    <string name="completed_tasks_cleared">Completed tasks cleared</string>
+    <string name="loading_tasks_error">Error while loading tasks</string>
 </resources>

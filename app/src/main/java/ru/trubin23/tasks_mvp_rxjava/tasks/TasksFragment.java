@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -79,7 +80,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
         Activity activity = getActivity();
         if (activity != null) {
             FloatingActionButton floatingActionButton = activity.findViewById(R.id.fab_add_task);
-            if (floatingActionButton!=null) {
+            if (floatingActionButton != null) {
                 floatingActionButton.setOnClickListener(__ -> mPresenter.addNewTask());
             }
         }
@@ -146,17 +147,21 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void setLoadingIndicator(boolean active) {
-
+        SwipeRefreshLayout swipeRefreshLayout = getView().findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(active));
     }
 
     @Override
     public void showLoadingTasksError() {
-
+        showMessage(getString(R.string.loading_tasks_error));
     }
 
     @Override
     public void showTasks(List<Task> tasks) {
+        mTasksAdapter.setTasks(tasks);
 
+        mTasksView.setVisibility(View.VISIBLE);
+        mTasksView.setVisibility(View.GONE);
     }
 
     @Override
@@ -199,7 +204,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showCompletedTasksCleared() {
-
+        showMessage(getString(R.string.completed_tasks_cleared));
     }
 
     @Override
