@@ -34,4 +34,6 @@
 
     <string name="loading">LOADING</string>
     <string name="statistics_error">Error loading statistics.</string>
+
+    <string name="successfully_saved_task_message">Task saved</string>
 </resources>

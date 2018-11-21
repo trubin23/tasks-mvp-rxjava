@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvp_rxjava.tasks;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -61,16 +62,27 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tasks_frag, container, false);
+
+        mTasksView = view.findViewById(R.id.list_tasks);
+        mNoTasksView = view.findViewById(R.id.no_tasks);
+        mNoTasksIcon = mNoTasksView.findViewById(R.id.no_tasks_icon);
+        mNoTasksText = mNoTasksView.findViewById(R.id.no_tasks_text);
 
         mFilteringLabel = view.findViewById(R.id.filtering_label);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(mTasksAdapter);
 
-        FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add_task);
-        floatingActionButton.setOnClickListener(__ -> mPresenter.addNewTask());
+        Activity activity = getActivity();
+        if (activity != null) {
+            FloatingActionButton floatingActionButton = activity.findViewById(R.id.fab_add_task);
+            if (floatingActionButton!=null) {
+                floatingActionButton.setOnClickListener(__ -> mPresenter.addNewTask());
+            }
+        }
 
         return view;
     }
@@ -215,6 +227,6 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showSuccessfullySavedMessage() {
-
+        showMessage(getString(R.string.successfully_saved_task_message));
     }
 }
