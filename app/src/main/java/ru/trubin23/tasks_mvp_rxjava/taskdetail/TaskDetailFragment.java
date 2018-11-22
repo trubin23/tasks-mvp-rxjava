@@ -116,14 +116,19 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_EDIT_TASK){// && resultCode == ADD_RESULT_OK){
+        if (requestCode == REQUEST_EDIT_TASK && resultCode == Activity.RESULT_OK){
             getActivity().finish();
+            return;
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void setLoadingIndicator(boolean active) {
-
+        if (active){
+            mTitle.setText("");
+            mDescription.setText(getString(R.string.loading));
+        }
     }
 
     @Override

@@ -234,4 +234,9 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     public void showSuccessfullySavedMessage() {
         showMessage(getString(R.string.successfully_saved_task_message));
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mPresenter.result(requestCode, resultCode);
+    }
 }
