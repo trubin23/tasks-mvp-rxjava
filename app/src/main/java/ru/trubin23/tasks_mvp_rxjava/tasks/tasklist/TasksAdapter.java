@@ -36,6 +36,13 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskHolder> 
         Task task = mTasks.get(position);
         holder.setTask(task);
         holder.itemView.setOnClickListener(v -> mItemListener.onTaskClick(task.getId()));
+        holder.mComplete.setOnClickListener(__ -> {
+            if (!task.isCompleted()) {
+                mItemListener.onCompleteTaskClick(task.getId());
+            } else {
+                mItemListener.onActivateTaskClick(task.getId());
+            }
+        });
     }
 
     @Override

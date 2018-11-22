@@ -155,34 +155,11 @@ public class TasksPresenter implements TasksContract.Presenter {
         mTasksView.showAddTask();
     }
 
-    private void showTasks(@NonNull List<Task> tasks) {
-        if (tasks.isEmpty()) {
-            showEmptyTasks();
-        } else {
-            mTasksView.showTasks(tasks);
-            showFilterLabel();
-        }
-    }
-
     @Override
     public void result(int requestCode, int resultCode) {
         if (AddEditTaskActivity.REQUEST_ADD_TASK == requestCode &&
                 Activity.RESULT_OK == resultCode) {
             mTasksView.showSuccessfullySavedMessage();
-        }
-    }
-
-    private void showEmptyTasks() {
-        switch (mFilterType) {
-            case ACTIVE_TASKS:
-                mTasksView.showNoActiveTasks();
-                break;
-            case COMPLETED_TASKS:
-                mTasksView.showNoCompletedTasks();
-                break;
-            case ALL_TASKS:
-                mTasksView.showNoTasks();
-                break;
         }
     }
 
