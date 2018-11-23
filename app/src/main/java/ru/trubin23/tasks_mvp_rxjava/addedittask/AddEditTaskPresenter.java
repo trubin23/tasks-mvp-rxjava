@@ -36,17 +36,20 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
         mAddEditTaskView = addEditTaskView;
         mSchedulerProvider = schedulerProvider;
 
+        mCompositeDisposable = new CompositeDisposable();
         mAddEditTaskView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-
+        if (!isNewTask() && mIsDataMissing){
+            populateTask();
+        }
     }
 
     @Override
     public void unsubscribe() {
-
+        mCompositeDisposable.clear();
     }
 
     private void populateTask() {
@@ -90,5 +93,10 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
             mTasksRepository.saveTask(task);
             mAddEditTaskView.showTaskList();
         }
+    }
+
+    @Override
+    public boolean isDataMissing(){
+        return mIsDataMissing;
     }
 }
