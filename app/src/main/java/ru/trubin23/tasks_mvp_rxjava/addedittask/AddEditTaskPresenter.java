@@ -30,11 +30,13 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
     AddEditTaskPresenter(@Nullable String taskId,
                          @NonNull TasksRepository tasksRepository,
                          @NonNull AddEditTaskContract.View addEditTaskView,
+                         boolean shouldLoadDataFromRepo,
                          @NonNull BaseSchedulerProvider schedulerProvider) {
         mTaskId = taskId;
         mTasksRepository = tasksRepository;
         mAddEditTaskView = addEditTaskView;
         mSchedulerProvider = schedulerProvider;
+        mIsDataMissing = shouldLoadDataFromRepo;
 
         mCompositeDisposable = new CompositeDisposable();
         mAddEditTaskView.setPresenter(this);

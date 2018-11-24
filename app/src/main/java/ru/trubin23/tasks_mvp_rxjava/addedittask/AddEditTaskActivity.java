@@ -43,6 +43,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
                     getSupportFragmentManager(), addEditTaskFragment, R.id.content_frame);
         }
 
+        String taskId = getIntent().getStringExtra(EXTRA_TASK_ID);
+
         boolean shouldLoadDataFromRepo = true;
 
         if (savedInstanceState != null){
@@ -50,9 +52,10 @@ public class AddEditTaskActivity extends AppCompatActivity {
         }
 
         mAddEditTaskPresenter = new AddEditTaskPresenter(
-                null,
+                taskId,
                 Injection.provideTasksRepository(getApplicationContext()),
                 addEditTaskFragment,
+                shouldLoadDataFromRepo,
                 Injection.provideSchedulerProvider());
     }
 
