@@ -20,6 +20,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
     private ActionBar mActionBar;
 
+    private static final String SHOULD_LOAD_DATA_FROM_REPO = "SHOULD_LOAD_DATA_FROM_REPO";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,12 @@ public class AddEditTaskActivity extends AppCompatActivity {
                     getSupportFragmentManager(), addEditTaskFragment, R.id.content_frame);
         }
 
+        boolean shouldLoadDataFromRepo = true;
+
+        if (savedInstanceState != null){
+            shouldLoadDataFromRepo = savedInstanceState.getBoolean(SHOULD_LOAD_DATA_FROM_REPO);
+        }
+
         mAddEditTaskPresenter = new AddEditTaskPresenter(
                 null,
                 Injection.provideTasksRepository(getApplicationContext()),
@@ -54,5 +62,11 @@ public class AddEditTaskActivity extends AppCompatActivity {
         } else {
             mActionBar.setTitle(R.string.edit_task);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(SHOULD_LOAD_DATA_FROM_REPO, mAddEditTaskPresenter.isDataMissing());
+        super.onSaveInstanceState(outState);
     }
 }
