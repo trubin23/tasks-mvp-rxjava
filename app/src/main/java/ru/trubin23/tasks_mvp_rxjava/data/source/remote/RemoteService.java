@@ -2,6 +2,7 @@ package ru.trubin23.tasks_mvp_rxjava.data.source.remote;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -13,10 +14,10 @@ import retrofit2.http.Path;
 public interface RemoteService {
 
     @GET("/api_mvp_rx/tasks")
-    Call<List<NetworkTask>> getTasks();
+    Flowable<List<NetworkTask>> getTasks();
 
     @GET("/api_mvp_rx/tasks/{id}")
-    Call<NetworkTask> getTask(@Path("id") String id);
+    Flowable<NetworkTask> getTask(@Path("id") String id);
 
     @POST("/api_mvp_rx/tasks")
     Call<NetworkTask> addTask(@Body NetworkTask task);

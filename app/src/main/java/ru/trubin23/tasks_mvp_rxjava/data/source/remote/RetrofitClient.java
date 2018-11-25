@@ -2,8 +2,11 @@ package ru.trubin23.tasks_mvp_rxjava.data.source.remote;
 
 import android.support.annotation.NonNull;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import java.util.List;
 
+import io.reactivex.Flowable;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,6 +23,7 @@ class RetrofitClient {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
 
             sRemoteService = retrofit.create(RemoteService.class);
@@ -27,14 +31,12 @@ class RetrofitClient {
         return sRemoteService;
     }
 
-    static void getTasks(@NonNull Callback<List<NetworkTask>> callback) {
-        RemoteService remoteService = getRemoteService();
-        remoteService.getTasks().enqueue(callback);
+    static Flowable<List<NetworkTask>> getTasks() {
+        return getRemoteService().getTasks();
     }
 
-    static void getTask(@NonNull String taskId, @NonNull Callback<NetworkTask> callback) {
-        RemoteService remoteService = getRemoteService();
-        remoteService.getTask(taskId).enqueue(callback);
+    static Flowable<NetworkTask> getTask(@NonNull String taskId) {
+        return getRemoteService().getTask(taskId);
     }
 
     static void addTask(@NonNull NetworkTask task, @NonNull Callback<NetworkTask> callback) {
