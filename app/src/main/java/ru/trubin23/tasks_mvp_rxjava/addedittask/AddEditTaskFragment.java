@@ -72,12 +72,12 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskContract
     }
 
     @Override
-    public void setTitle(@NonNull String title) {
+    public void setTitle(@Nullable  String title) {
         mTitle.setText(title);
     }
 
     @Override
-    public void setDescription(@NonNull String description) {
+    public void setDescription(@Nullable  String description) {
         mDescription.setText(description);
     }
 }

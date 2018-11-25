@@ -12,12 +12,17 @@ import ru.trubin23.tasks_mvp_rxjava.data.source.TasksDataSource;
 
 public class TasksRemoteRepository implements TasksDataSource {
 
+    private static TasksRemoteRepository INSTANCE;
+
     private TasksRemoteRepository() {
 
     }
 
     public static TasksRemoteRepository getInstance() {
-        return new TasksRemoteRepository();
+        if (INSTANCE == null) {
+            INSTANCE = new TasksRemoteRepository();
+        }
+        return INSTANCE;
     }
 
 
