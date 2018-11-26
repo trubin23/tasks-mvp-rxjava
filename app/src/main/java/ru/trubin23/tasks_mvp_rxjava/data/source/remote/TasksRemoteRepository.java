@@ -40,7 +40,12 @@ public class TasksRemoteRepository implements TasksDataSource {
 
     @Override
     public Flowable<Optional<Task>> getTask(@NonNull String taskId) {
-        return null;
+        return RetrofitClient.getTask(taskId)
+                .flatMap(networkTask -> new Task(networkTask.getId(),
+                        networkTask.getTitle(), networkTask.getDescription(),
+                        StatusOfTask.integerToBoolean(networkTask.getCompleted()))
+                )
+                        .toFlowable());
     }
 
     @Override
