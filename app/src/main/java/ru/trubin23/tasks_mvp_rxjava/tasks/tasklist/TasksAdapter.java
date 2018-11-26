@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.trubin23.tasks_mvp_rxjava.R;
@@ -15,24 +16,23 @@ import ru.trubin23.tasks_mvp_rxjava.data.Task;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskHolder> {
 
-    private List<Task> mTasks;
+    private List<Task> mTasks = new ArrayList<>();
     private TaskItemListener mItemListener;
 
-    public TasksAdapter(List<Task> tasks, TaskItemListener itemListener) {
+    public TasksAdapter(TaskItemListener itemListener) {
         mItemListener = itemListener;
-        setTasks(tasks);
     }
 
     @NonNull
     @Override
-    public TasksAdapter.TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_item, parent, false);
         return new TaskHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TasksAdapter.TaskHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TaskHolder holder, int position) {
         Task task = mTasks.get(position);
         holder.setTask(task);
         holder.itemView.setOnClickListener(v -> mItemListener.onTaskClick(task.getId()));
@@ -51,8 +51,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskHolder> 
     }
 
     public void setTasks(@NonNull List<Task> tasks) {
-        mTasks = tasks;
-        notifyDataSetChanged();
+        //mTasks.clear();
+        //mTasks.addAll(tasks);
+        //this.notifyDataSetChanged();
     }
 
     class TaskHolder extends RecyclerView.ViewHolder {

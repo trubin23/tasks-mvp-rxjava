@@ -58,7 +58,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTasksAdapter = new TasksAdapter(new ArrayList<>(0), mTaskItemListener);
+        mTasksAdapter = new TasksAdapter(mTaskItemListener);
     }
 
     @Nullable
