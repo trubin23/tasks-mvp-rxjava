@@ -1,6 +1,5 @@
 package ru.trubin23.tasks_mvp_rxjava.addedittask;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import ru.trubin23.tasks_mvp_rxjava.BasePresenter;
