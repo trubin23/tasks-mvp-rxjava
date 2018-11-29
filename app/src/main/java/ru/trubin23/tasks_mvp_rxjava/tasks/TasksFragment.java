@@ -37,14 +37,29 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     private TasksAdapter mTasksAdapter;
 
-    private TaskItemListener mTaskItemListener = null;
-
     private TextView mFilteringLabel;
 
     private LinearLayout mTasksView;
     private LinearLayout mNoTasksView;
     private ImageView mNoTasksIcon;
     private TextView mNoTasksText;
+
+    private TaskItemListener mTaskItemListener = new TaskItemListener() {
+        @Override
+        public void onTaskClick(String taskId) {
+            mPresenter.openTaskDetails(taskId);
+        }
+
+        @Override
+        public void onCompleteTaskClick(String taskId) {
+
+        }
+
+        @Override
+        public void onActivateTaskClick(String taskId) {
+
+        }
+    };
 
     @NonNull
     public static TasksFragment newInstance() {

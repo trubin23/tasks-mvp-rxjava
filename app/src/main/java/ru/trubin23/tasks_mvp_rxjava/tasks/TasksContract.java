@@ -55,5 +55,7 @@ public interface TasksContract {
         void changeCompletedTask(@NonNull String taskId, boolean completed);
 
         TasksFilterType getFiltering();
+
+        void openTaskDetails(String taskId);
     }
 }

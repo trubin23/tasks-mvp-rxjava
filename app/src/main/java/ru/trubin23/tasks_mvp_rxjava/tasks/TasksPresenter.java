@@ -144,6 +144,11 @@ public class TasksPresenter implements TasksContract.Presenter {
     }
 
     @Override
+    public void openTaskDetails(String taskId) {
+
+    }
+
+    @Override
     public void clearCompletedTask() {
         mTasksRepository.clearCompletedTask();
         mTasksView.showCompletedTasksCleared();
