@@ -28,6 +28,7 @@ import java.util.List;
 import ru.trubin23.tasks_mvp_rxjava.R;
 import ru.trubin23.tasks_mvp_rxjava.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
+import ru.trubin23.tasks_mvp_rxjava.taskdetail.TaskDetailActivity;
 import ru.trubin23.tasks_mvp_rxjava.tasks.tasklist.TaskItemListener;
 import ru.trubin23.tasks_mvp_rxjava.tasks.tasklist.TasksAdapter;
 
@@ -52,12 +53,12 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
         @Override
         public void onCompleteTaskClick(String taskId) {
-
+            mPresenter.changeCompletedTask(taskId, true);
         }
 
         @Override
         public void onActivateTaskClick(String taskId) {
-
+            mPresenter.changeCompletedTask(taskId, false);
         }
     };
 
@@ -174,7 +175,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     }
 
     @Override
-    public void showTasks(List<Task> tasks) {
+    public void showTasks(@NonNull List<Task> tasks) {
         mTasksAdapter.setTasks(tasks);
 
         mTasksView.setVisibility(View.VISIBLE);
@@ -239,6 +240,13 @@ public class TasksFragment extends Fragment implements TasksContract.View {
         if (view != null) {
             Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void showTaskDetail(@NonNull String taskId) {
+        Intent intent = new Intent(getContext(), TaskDetailActivity.class);
+        intent.putExtra(TaskDetailActivity.SHOW_TASK_ID, taskId);
+        startActivity(intent);
     }
 
     @Override

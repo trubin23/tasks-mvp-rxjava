@@ -11,11 +11,12 @@ import ru.trubin23.tasks_mvp_rxjava.data.Task;
 public interface TasksContract {
 
     interface View extends BaseView<Presenter> {
+
         void setLoadingIndicator(boolean active);
 
         void showLoadingTasksError();
 
-        void showTasks(List<Task> tasks);
+        void showTasks(@NonNull List<Task> tasks);
 
         void showActiveFilterLabel();
 
@@ -34,6 +35,8 @@ public interface TasksContract {
         void showTaskMarkedComplete();
 
         void showTaskMarkedActive();
+
+        void showTaskDetail(@NonNull String taskId);
 
         void showAddTask();
 
@@ -56,6 +59,6 @@ public interface TasksContract {
 
         TasksFilterType getFiltering();
 
-        void openTaskDetails(String taskId);
+        void openTaskDetails(@NonNull String taskId);
     }
 }

@@ -11,6 +11,8 @@ import ru.trubin23.tasks_mvp_rxjava.util.ActivityUtils;
 
 public class TaskDetailActivity extends AppCompatActivity {
 
+    public static final String SHOW_TASK_ID = "TASK_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

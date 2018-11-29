@@ -144,8 +144,8 @@ public class TasksPresenter implements TasksContract.Presenter {
     }
 
     @Override
-    public void openTaskDetails(String taskId) {
-
+    public void openTaskDetails(@NonNull String taskId) {
+        mTasksView.showTaskDetail(taskId);
     }
 
     @Override
