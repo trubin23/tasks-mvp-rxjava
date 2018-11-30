@@ -149,6 +149,11 @@ public class TasksPresenter implements TasksContract.Presenter {
     }
 
     @Override
+    public void refreshTasks() {
+
+    }
+
+    @Override
     public void clearCompletedTask() {
         mTasksRepository.clearCompletedTask();
         mTasksView.showCompletedTasksCleared();

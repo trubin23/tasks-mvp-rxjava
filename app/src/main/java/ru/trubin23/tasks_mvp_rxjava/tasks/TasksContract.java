@@ -60,5 +60,7 @@ public interface TasksContract {
         TasksFilterType getFiltering();
 
         void openTaskDetails(@NonNull String taskId);
+
+        void refreshTasks();
     }
 }

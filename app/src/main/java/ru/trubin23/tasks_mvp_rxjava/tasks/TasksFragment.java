@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ru.trubin23.tasks_mvp_rxjava.R;
@@ -44,6 +43,8 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     private LinearLayout mNoTasksView;
     private ImageView mNoTasksIcon;
     private TextView mNoTasksText;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private TaskItemListener mTaskItemListener = new TaskItemListener() {
         @Override
@@ -102,6 +103,9 @@ public class TasksFragment extends Fragment implements TasksContract.View {
                 floatingActionButton.setOnClickListener(__ -> mPresenter.addNewTask());
             }
         }
+
+        swipeRefreshLayout = view.findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(() -> mPresenter.refreshTasks());
 
         return view;
     }
@@ -165,7 +169,6 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void setLoadingIndicator(boolean active) {
-        SwipeRefreshLayout swipeRefreshLayout = getView().findViewById(R.id.refresh_layout);
         swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(active));
     }
 
