@@ -44,7 +44,7 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
 
     @Override
     public void subscribe() {
-        if (!isNewTask() && mIsDataMissing){
+        if (!isNewTask() && mIsDataMissing) {
             populateTask();
         }
     }
@@ -61,7 +61,7 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe(
                         taskOptional -> {
-                            if (taskOptional.isPresent()){
+                            if (taskOptional.isPresent()) {
                                 Task task = taskOptional.get();
 
                                 mAddEditTaskView.setTitle(task.getTitle());
@@ -86,7 +86,7 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
         if (isNewTask()) {
             task = new Task(title, description);
         } else {
-            task = new Task(title, description, mTaskId);
+            task = new Task(mTaskId, title, description);
         }
 
         if (task.isEmpty()) {
@@ -98,7 +98,7 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
     }
 
     @Override
-    public boolean isDataMissing(){
+    public boolean isDataMissing() {
         return mIsDataMissing;
     }
 }

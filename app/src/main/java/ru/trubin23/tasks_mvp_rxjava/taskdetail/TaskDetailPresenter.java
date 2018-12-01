@@ -67,8 +67,7 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
                 .subscribe(
                         this::showTask,
                         throwable -> {
-                        },
-                        () -> mTaskDetailView.setLoadingIndicator(false)
+                        }
                 ));
     }
 

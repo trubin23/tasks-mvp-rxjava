@@ -27,20 +27,20 @@ public final class Task {
 
     private final boolean mCompleted;
 
-    public Task(@NonNull String id, @Nullable String title, @Nullable String description, boolean completed) {
+    public Task(@NonNull String id, @Nullable String title,
+                @Nullable String description, boolean completed) {
         mId = id;
         mTitle = title;
         mDescription = description;
         mCompleted = completed;
     }
 
-    public Task(@NonNull String title, @NonNull String description,
-                @NonNull String taskId){
-        this(title, description, taskId, false);
+    public Task(@NonNull String taskId, @NonNull String title, @NonNull String description) {
+        this(taskId, title, description, false);
     }
 
-    public Task(@NonNull String title, @NonNull String description){
-        this(title, description, UUID.randomUUID().toString(), false);
+    public Task(@NonNull String title, @NonNull String description) {
+        this(UUID.randomUUID().toString(), title, description, false);
     }
 
     @NonNull
@@ -60,7 +60,7 @@ public final class Task {
 
     @Nullable
     public String getTitleForList() {
-        if (!Strings.isNullOrEmpty(mTitle)){
+        if (!Strings.isNullOrEmpty(mTitle)) {
             return mTitle;
         } else {
             return mDescription;
@@ -75,7 +75,7 @@ public final class Task {
         return !mCompleted;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return Strings.isNullOrEmpty(mTitle) ||
                 Strings.isNullOrEmpty(mDescription);
     }
