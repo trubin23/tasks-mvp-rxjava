@@ -26,6 +26,8 @@ public class TaskDetailActivity extends AppCompatActivity {
             actionBar.setDisplayShowHomeEnabled(true);
         }
 
+        String taskId = getIntent().getStringExtra(SHOW_TASK_ID);
+
         TaskDetailFragment taskDetailFragment = (TaskDetailFragment)
                 getSupportFragmentManager().findFragmentById(R.id.content_frame);
         if (taskDetailFragment == null) {
@@ -34,8 +36,8 @@ public class TaskDetailActivity extends AppCompatActivity {
                     getSupportFragmentManager(), taskDetailFragment, R.id.content_frame);
         }
 
-        TaskDetailPresenter taskDetailPresenter = new TaskDetailPresenter(
-                null,
+        new TaskDetailPresenter(
+                taskId,
                 Injection.provideTasksRepository(getApplicationContext()),
                 taskDetailFragment,
                 Injection.provideSchedulerProvider());
@@ -44,6 +46,6 @@ public class TaskDetailActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
-        return super.onSupportNavigateUp();
+        return true;
     }
 }
