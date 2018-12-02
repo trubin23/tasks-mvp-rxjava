@@ -64,22 +64,24 @@ public class TasksRemoteRepository implements TasksDataSource {
 
     @Override
     public void completeTask(@NonNull Task task) {
-
+        completeTask(task.getId());
     }
 
     @Override
     public void completeTask(@NonNull String taskId) {
-
+        RetrofitClient.completeTask(taskId, new StatusOfTask(true),
+                new ProcessingResponse<>());
     }
 
     @Override
     public void activateTask(@NonNull Task task) {
-
+        activateTask(task.getId());
     }
 
     @Override
     public void activateTask(@NonNull String taskId) {
-
+        RetrofitClient.completeTask(taskId, new StatusOfTask(false),
+                new ProcessingResponse<>());
     }
 
     @Override
