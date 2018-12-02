@@ -55,7 +55,11 @@ public class TasksRemoteRepository implements TasksDataSource {
 
     @Override
     public void saveTask(@NonNull Task task) {
+        NetworkTask networkTask = new NetworkTask(task.getId(),
+                task.getTitle(), task.getDescription(),
+                task.isCompleted());
 
+        RetrofitClient.addTask(networkTask, new ProcessingResponse<>());
     }
 
     @Override
