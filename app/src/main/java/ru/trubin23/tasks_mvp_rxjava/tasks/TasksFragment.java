@@ -85,6 +85,8 @@ public class TasksFragment extends Fragment implements TasksContract.View {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tasks_frag, container, false);
 
+        setHasOptionsMenu(true);
+
         mTasksView = view.findViewById(R.id.list_tasks);
         mNoTasksView = view.findViewById(R.id.no_tasks);
         mNoTasksIcon = mNoTasksView.findViewById(R.id.no_tasks_icon);

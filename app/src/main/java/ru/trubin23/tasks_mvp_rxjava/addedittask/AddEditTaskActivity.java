@@ -27,12 +27,15 @@ public class AddEditTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_edit_task_act);
 
+        String taskId = getIntent().getStringExtra(EXTRA_TASK_ID);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mActionBar = getSupportActionBar();
         if (mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(true);
             mActionBar.setDisplayShowHomeEnabled(true);
+            setToolbarTitle(taskId);
         }
 
         AddEditTaskFragment addEditTaskFragment = (AddEditTaskFragment)
@@ -42,8 +45,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), addEditTaskFragment, R.id.content_frame);
         }
-
-        String taskId = getIntent().getStringExtra(EXTRA_TASK_ID);
 
         boolean shouldLoadDataFromRepo = true;
 
