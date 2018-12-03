@@ -48,13 +48,16 @@ public class StatisticsPresenter implements StatisticsContract.Presenter {
         Flowable<Long> activeTasks = tasks.filter(Task::isActive).count().toFlowable();
 
         Disposable disposable = Flowable
-                .zip(completedTasks, activeTasks, (completed, active) -> Pair.create(active, completed))
+                .zip(completedTasks, activeTasks,
+                        (completed, active) -> Pair.create(active, completed))
                 .subscribeOn(mSchedulerProvider.computation())
                 .observeOn(mSchedulerProvider.ui())
-                .doFinally(() -> {})
+                .doFinally(() -> {
+                })
                 .subscribe(
-                        stats -> mStatisticsView.showStatistics(Ints.saturatedCast(stats.first), Ints.saturatedCast(stats.first)),
-                        throwable ->mStatisticsView.showLoadingStatisticsError(),
+                        stats -> mStatisticsView.showStatistics(
+                                Ints.saturatedCast(stats.first), Ints.saturatedCast(stats.second)),
+                        throwable -> mStatisticsView.showLoadingStatisticsError(),
                         () -> mStatisticsView.setProgressIndicator(false)
                 );
         mCompositeDisposable.add(disposable);

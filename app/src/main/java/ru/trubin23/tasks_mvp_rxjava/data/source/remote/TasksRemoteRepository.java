@@ -86,21 +86,22 @@ public class TasksRemoteRepository implements TasksDataSource {
 
     @Override
     public void clearCompletedTask() {
+        RetrofitClient.deleteCompletedTasks(new ProcessingResponse<>());
 
     }
 
     @Override
     public void refreshTasks() {
-
+        //ignore
     }
 
     @Override
     public void deleteAllTasks() {
-
+        //ignore
     }
 
     @Override
     public void deleteTask(@NonNull String taskId) {
-
+        RetrofitClient.deleteTask(taskId, new ProcessingResponse<>());
     }
 }
