@@ -37,7 +37,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskHolder> 
         holder.setTask(task);
         holder.itemView.setOnClickListener(v -> mItemListener.onTaskClick(task.getId()));
         holder.mComplete.setOnClickListener(__ -> {
-            if (holder.mComplete.isChecked()) {
+            if (!holder.mComplete.isChecked()) {
                 mItemListener.onActivateTaskClick(task.getId());
             } else {
                 mItemListener.onCompleteTaskClick(task.getId());

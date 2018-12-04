@@ -59,7 +59,7 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.taskdetail_menu, menu);
+        inflater.inflate(R.menu.task_detail_frag_menu, menu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

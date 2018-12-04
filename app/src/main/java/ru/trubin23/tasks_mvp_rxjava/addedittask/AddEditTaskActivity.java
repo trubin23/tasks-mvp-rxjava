@@ -73,4 +73,10 @@ public class AddEditTaskActivity extends AppCompatActivity {
         outState.putBoolean(SHOULD_LOAD_DATA_FROM_REPO, mAddEditTaskPresenter.isDataMissing());
         super.onSaveInstanceState(outState);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }
