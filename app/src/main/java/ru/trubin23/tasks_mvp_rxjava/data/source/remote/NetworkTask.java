@@ -1,6 +1,7 @@
 package ru.trubin23.tasks_mvp_rxjava.data.source.remote;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -20,8 +21,8 @@ class NetworkTask {
     @Expose
     private Integer mCompleted;
 
-    public NetworkTask(@NonNull String id, @NonNull String title,
-                       @NonNull String description, boolean completed) {
+    NetworkTask(@NonNull String id, @Nullable String title,
+                @Nullable String description, boolean completed) {
         mId = id;
         mTitle = title;
         mDescription = description;

@@ -2,6 +2,7 @@ package ru.trubin23.tasks_mvp_rxjava.taskdetail;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
@@ -67,11 +68,13 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
                 .subscribe(
                         this::showTask,
                         throwable -> {
+                            Log.d("show_task", "throwable");
                         }
                 ));
     }
 
     private void showTask(Task task) {
+        Log.d("show_task", "private void showTask(Task task)");
         String title = task.getTitle();
         String description = task.getDescription();
 

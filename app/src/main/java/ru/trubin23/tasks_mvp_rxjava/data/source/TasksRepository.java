@@ -82,14 +82,27 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public Flowable<Optional<Task>> getTask(@NonNull String taskId) {
-        return mTasksLocalDataSource
+        Flowable<Optional<Task>> localTask = mTasksLocalDataSource
                 .getTask(taskId)
                 .doOnNext(taskOptional -> {
-                    if (taskOptional.isPresent()){
+                    if (taskOptional.isPresent()) {
                         mCachedTasks.put(taskId, taskOptional.get());
                     }
-                })
-                .firstElement().toFlowable();
+                });
+
+        Flowable<Optional<Task>> remoteTask = mTasksLocalDataSource
+                .getTask(taskId)
+                .doOnNext(taskOptional -> {
+                    if (taskOptional.isPresent()) {
+                        Task task = taskOptional.get();
+                        mTasksLocalDataSource.saveTask(task);
+                        mCachedTasks.put(task.getId(), task);
+                    }
+                });
+
+        return Flowable.concat(localTask, remoteTask)
+                .firstElement()
+                .toFlowable();
     }
 
     @Override
@@ -110,7 +123,7 @@ public class TasksRepository implements TasksDataSource {
 
         Task completedTask = new Task(task.getId(), task.getTitle(), task.getDescription(), true);
 
-        if (mCachedTasks == null){
+        if (mCachedTasks == null) {
             mCachedTasks = new LinkedHashMap<>();
         }
         mCachedTasks.put(task.getId(), completedTask);
@@ -119,7 +132,7 @@ public class TasksRepository implements TasksDataSource {
     @Override
     public void completeTask(@NonNull String taskId) {
         Task taskWithId = getTaskWithId(taskId);
-        if (taskWithId != null){
+        if (taskWithId != null) {
             completeTask(taskWithId);
         }
     }
@@ -131,7 +144,7 @@ public class TasksRepository implements TasksDataSource {
 
         Task activeTask = new Task(task.getId(), task.getTitle(), task.getDescription(), false);
 
-        if (mCachedTasks == null){
+        if (mCachedTasks == null) {
             mCachedTasks = new LinkedHashMap<>();
         }
         mCachedTasks.put(task.getId(), activeTask);
@@ -140,7 +153,7 @@ public class TasksRepository implements TasksDataSource {
     @Override
     public void activateTask(@NonNull String taskId) {
         Task taskWithId = getTaskWithId(taskId);
-        if (taskWithId != null){
+        if (taskWithId != null) {
             activateTask(taskWithId);
         }
     }
@@ -163,7 +176,7 @@ public class TasksRepository implements TasksDataSource {
         mTasksRemoteDataSource.deleteAllTasks();
         mTasksLocalDataSource.deleteAllTasks();
 
-        if (mCachedTasks ==null){
+        if (mCachedTasks == null) {
             mCachedTasks = new LinkedHashMap<>();
         }
         mCachedTasks.clear();
@@ -184,13 +197,13 @@ public class TasksRepository implements TasksDataSource {
         mTasksRemoteDataSource.clearCompletedTask();
         mTasksLocalDataSource.clearCompletedTask();
 
-        if (mCachedTasks == null){
+        if (mCachedTasks == null) {
             mCachedTasks = new LinkedHashMap<>();
         }
         Iterator<Map.Entry<String, Task>> iterator = mCachedTasks.entrySet().iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry<String, Task> entry = iterator.next();
-            if (entry.getValue().isCompleted()){
+            if (entry.getValue().isCompleted()) {
                 iterator.remove();
             }
         }
