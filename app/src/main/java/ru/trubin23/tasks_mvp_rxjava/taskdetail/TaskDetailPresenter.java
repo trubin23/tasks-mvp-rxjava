@@ -111,4 +111,24 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
             mTaskDetailView.showTaskDeleted(mTaskId);
         }
     }
+
+    @Override
+    public void completeTask() {
+        if (Strings.isNullOrEmpty(mTaskId)) {
+            mTaskDetailView.showMissingTask();
+        } else {
+            mTasksRepository.completeTask(mTaskId);
+            mTaskDetailView.showTaskMarkedComplete();
+        }
+    }
+
+    @Override
+    public void activateTask() {
+        if (Strings.isNullOrEmpty(mTaskId)) {
+            mTaskDetailView.showMissingTask();
+        } else {
+            mTasksRepository.activateTask(mTaskId);
+            mTaskDetailView.showTaskMarkedActive();
+        }
+    }
 }
