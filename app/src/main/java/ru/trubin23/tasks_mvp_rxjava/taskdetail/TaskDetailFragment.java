@@ -92,6 +92,15 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
     @Override
     public void showCompletionStatus(boolean complete) {
         mCompleteStatus.setChecked(complete);
+        mCompleteStatus.setOnCheckedChangeListener(
+                (view, isChecked) -> {
+                    if (isChecked) {
+                        mPresenter.completeTask();
+                    } else {
+                        mPresenter.completeTask();
+                    }
+                }
+        );
     }
 
     @Override
@@ -104,26 +113,26 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
     @Override
     public void showTaskDeleted(String taskId) {
         Activity activity = getActivity();
-        if (activity != null){
+        if (activity != null) {
             activity.finish();
         }
     }
 
     @Override
     public void showTaskMarkedComplete() {
-        Snackbar.make(getView(),getString(R.string.task_marked_complete), Snackbar.LENGTH_LONG)
+        Snackbar.make(getView(), getString(R.string.task_marked_complete), Snackbar.LENGTH_LONG)
                 .show();
     }
 
     @Override
     public void showTaskMarkedActive() {
-        Snackbar.make(getView(),getString(R.string.task_marked_active), Snackbar.LENGTH_LONG)
+        Snackbar.make(getView(), getString(R.string.task_marked_active), Snackbar.LENGTH_LONG)
                 .show();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_EDIT_TASK && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_EDIT_TASK && resultCode == Activity.RESULT_OK) {
             getActivity().finish();
             return;
         }
@@ -132,7 +141,7 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     @Override
     public void setLoadingIndicator(boolean active) {
-        if (active){
+        if (active) {
             mTitle.setText("");
             mDescription.setText(getString(R.string.loading));
         }
