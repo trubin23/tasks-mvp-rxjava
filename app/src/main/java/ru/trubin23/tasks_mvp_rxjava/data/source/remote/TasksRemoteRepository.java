@@ -11,7 +11,7 @@ import io.reactivex.Single;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
 import ru.trubin23.tasks_mvp_rxjava.data.source.TasksDataSource;
 
-public class TasksRemoteRepository implements TasksDataSource {
+public class TasksRemoteRepository implements TasksRemoteDataSource {
 
     private static TasksRemoteRepository INSTANCE;
 
@@ -103,5 +103,14 @@ public class TasksRemoteRepository implements TasksDataSource {
     @Override
     public void deleteTask(@NonNull String taskId) {
         RetrofitClient.deleteTask(taskId, new ProcessingResponse<>());
+    }
+
+    @Override
+    public void updateTask(@NonNull Task task) {
+        NetworkTask networkTask = new NetworkTask(task.getId(),
+                task.getTitle(), task.getDescription(),
+                task.isCompleted());
+
+        RetrofitClient.updateTask(networkTask, new ProcessingResponse<>());
     }
 }

@@ -12,26 +12,27 @@ import java.util.Map;
 
 import io.reactivex.Flowable;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
+import ru.trubin23.tasks_mvp_rxjava.data.source.remote.TasksRemoteDataSource;
 
 public class TasksRepository implements TasksDataSource {
 
     @Nullable
     private static TasksRepository INSTANCE = null;
 
-    private final TasksDataSource mTasksRemoteDataSource;
+    private final TasksRemoteDataSource mTasksRemoteDataSource;
     private final TasksDataSource mTasksLocalDataSource;
 
     private Map<String, Task> mCachedTasks;
 
     private boolean mCacheIsDirty = false;
 
-    private TasksRepository(@NonNull TasksDataSource tasksRemoteDataSource,
+    private TasksRepository(@NonNull TasksRemoteDataSource tasksRemoteDataSource,
                             @NonNull TasksDataSource tasksLocalDataSource) {
         mTasksRemoteDataSource = tasksRemoteDataSource;
         mTasksLocalDataSource = tasksLocalDataSource;
     }
 
-    public static TasksRepository getInstance(@NonNull TasksDataSource tasksRemoteDataSource,
+    public static TasksRepository getInstance(@NonNull TasksRemoteDataSource tasksRemoteDataSource,
                                               @NonNull TasksDataSource tasksLocalDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new TasksRepository(tasksRemoteDataSource, tasksLocalDataSource);

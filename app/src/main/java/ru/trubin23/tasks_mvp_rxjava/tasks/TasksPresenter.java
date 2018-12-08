@@ -91,7 +91,10 @@ public class TasksPresenter implements TasksContract.Presenter {
                             processTasks(tasks);
                             mTasksView.setLoadingIndicator(false);
                         },
-                        throwable -> mTasksView.showLoadingTasksError());
+                        throwable -> {
+                            mTasksView.showLoadingTasksError();
+                            mTasksView.setLoadingIndicator(false);
+                        });
 
         mCompositeDisposable.add(disposable);
     }
