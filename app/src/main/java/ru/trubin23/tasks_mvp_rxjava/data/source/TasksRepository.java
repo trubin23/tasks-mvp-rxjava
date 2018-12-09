@@ -133,7 +133,8 @@ public class TasksRepository implements TasksDataSource {
         mTasksRemoteDataSource.completeTask(task);
         mTasksLocalDataSource.completeTask(task);
 
-        Task completedTask = new Task(task.getId(), task.getTitle(), task.getDescription(), true);
+        Task completedTask = new Task(task.getId(), task.getTitle(),
+                task.getDescription(), true);
 
         if (mCachedTasks == null) {
             mCachedTasks = new LinkedHashMap<>();
