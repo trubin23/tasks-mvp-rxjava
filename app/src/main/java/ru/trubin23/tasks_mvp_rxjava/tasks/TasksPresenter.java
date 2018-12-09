@@ -13,8 +13,6 @@ import ru.trubin23.tasks_mvp_rxjava.data.Task;
 import ru.trubin23.tasks_mvp_rxjava.data.source.TasksRepository;
 import ru.trubin23.tasks_mvp_rxjava.util.schedulers.BaseSchedulerProvider;
 
-import static ru.trubin23.tasks_mvp_rxjava.tasks.TasksFilterType.ALL_TASKS;
-
 public class TasksPresenter implements TasksContract.Presenter {
 
     @NonNull
@@ -32,7 +30,7 @@ public class TasksPresenter implements TasksContract.Presenter {
     private CompositeDisposable mCompositeDisposable;
 
     @NonNull
-    private TasksFilterType mFilterType = ALL_TASKS;
+    private TasksFilterType mFilterType = TasksFilterType.ALL_TASKS;
 
     TasksPresenter(@NonNull TasksRepository tasksRepository,
                    @NonNull TasksContract.View tasksView,
@@ -117,6 +115,7 @@ public class TasksPresenter implements TasksContract.Presenter {
                 mTasksView.showNoCompletedTasks();
                 break;
             case ALL_TASKS:
+            default:
                 mTasksView.showNoTasks();
                 break;
         }
@@ -131,6 +130,7 @@ public class TasksPresenter implements TasksContract.Presenter {
                 mTasksView.showCompletedFilterLabel();
                 break;
             case ALL_TASKS:
+            default:
                 mTasksView.showAllFilterLabel();
                 break;
         }

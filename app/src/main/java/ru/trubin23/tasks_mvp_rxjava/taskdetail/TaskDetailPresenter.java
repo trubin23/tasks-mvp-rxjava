@@ -63,7 +63,7 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
                 .getTask(mTaskId)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .subscribeOn(mSchedulerProvider.computation())
+                .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe(
                         this::showTask,

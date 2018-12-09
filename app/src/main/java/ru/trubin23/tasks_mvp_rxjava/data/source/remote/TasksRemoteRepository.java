@@ -7,7 +7,6 @@ import com.google.common.base.Optional;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
 
 public class TasksRemoteRepository implements TasksRemoteDataSource {
@@ -40,16 +39,14 @@ public class TasksRemoteRepository implements TasksRemoteDataSource {
 
     @Override
     public Flowable<Optional<Task>> getTask(@NonNull String taskId) {
-
-        NetworkTask networkTask = RetrofitClient.getTask(taskId).singleOrError().blockingGet();
-
-        Task task = new Task(networkTask.getId(),
-                networkTask.getTitle(), networkTask.getDescription(),
-                StatusOfTask.integerToBoolean(networkTask.getCompleted()));
-
-        Optional<Task> taskOptional = Optional.of(task);
-
-        return Single.just(taskOptional).toFlowable();
+        return RetrofitClient.getTask(taskId)
+                .flatMap(networkTask -> {
+                            Task task = new Task(networkTask.getId(),
+                                    networkTask.getTitle(), networkTask.getDescription(),
+                                    StatusOfTask.integerToBoolean(networkTask.getCompleted()));
+                            return Flowable.just(Optional.of(task));
+                        }
+                );
     }
 
     @Override

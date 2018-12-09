@@ -91,7 +91,7 @@ public class TasksRepository implements TasksDataSource {
                     }
                 });
 
-        Flowable<Optional<Task>> remoteTask = mTasksLocalDataSource
+        Flowable<Optional<Task>> remoteTask = mTasksRemoteDataSource
                 .getTask(taskId)
                 .doOnNext(taskOptional -> {
                     if (taskOptional.isPresent()) {
