@@ -109,6 +109,11 @@ public class TasksLocalRepository implements TasksDataSource {
     }
 
     @Override
+    public void updateTask(@NonNull Task task) {
+        saveTask(task);
+    }
+
+    @Override
     public void completeTask(@NonNull Task task) {
         completeTask(task.getId());
     }

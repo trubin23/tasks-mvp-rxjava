@@ -92,7 +92,11 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
         if (task.isEmpty()) {
             mAddEditTaskView.showEmptyTaskError();
         } else {
-            mTasksRepository.saveTask(task);
+            if (isNewTask()) {
+                mTasksRepository.saveTask(task);
+            } else {
+                mTasksRepository.updateTask(task);
+            }
             mAddEditTaskView.showTaskList();
         }
     }

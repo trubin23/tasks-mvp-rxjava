@@ -17,6 +17,8 @@ public interface TasksDataSource {
 
     void saveTask(@NonNull Task task);
 
+    void updateTask(@NonNull Task task);
+
     void completeTask(@NonNull Task task);
 
     void completeTask(@NonNull String taskId);

@@ -9,7 +9,6 @@ import java.util.List;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import ru.trubin23.tasks_mvp_rxjava.data.Task;
-import ru.trubin23.tasks_mvp_rxjava.data.source.TasksDataSource;
 
 public class TasksRemoteRepository implements TasksRemoteDataSource {
 
@@ -88,16 +87,6 @@ public class TasksRemoteRepository implements TasksRemoteDataSource {
     public void clearCompletedTask() {
         RetrofitClient.deleteCompletedTasks(new ProcessingResponse<>());
 
-    }
-
-    @Override
-    public void refreshTasks() {
-        //ignore
-    }
-
-    @Override
-    public void deleteAllTasks() {
-        //ignore
     }
 
     @Override
