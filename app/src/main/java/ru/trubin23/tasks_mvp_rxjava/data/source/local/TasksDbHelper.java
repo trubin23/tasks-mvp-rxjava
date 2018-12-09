@@ -17,7 +17,7 @@ public class TasksDbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + Task.TABLE_NAME + " (" +
-                    Task.COLUMN_ID + TEXT_TYPE + "," +
+                    Task.COLUMN_ID + TEXT_TYPE + " PRIMARY KEY," +
                     Task.COLUMN_TITLE + TEXT_TYPE + "," +
                     Task.COLUMN_DESCRIPTION + TEXT_TYPE + "," +
                     Task.COLUMN_COMPLETED + BOOLEAN_TYPE + ")";
